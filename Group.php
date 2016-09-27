@@ -52,7 +52,7 @@
         echo "table  is  created!";
         //link form var value into database table
         
-        $sql="INSERT INTO Grounp (Group_Name,Group_Description) VALUES ('$GroupName','$GroupDes')";
+        $sql="INSERT INTO Groups (Group_Name,Group_Description) VALUES ('$GroupName','$GroupDes')";
         
         mysql_query($sql,$connect);
          header("Location: Group.php");
@@ -86,7 +86,7 @@ cellspacing="5" cellpadding="8">
 <td align="left"><b>Group Name</b></td>
 <td align="left"><b>Group Description</b></td>
 </tr>';
-$r = mysql_query("SELECT * FROM Grounp"); 
+$r = mysql_query("SELECT * FROM Groups"); 
 while($row = mysql_fetch_array($r)){
     //output value from database table
     echo  '<tr><td align="left">' .
