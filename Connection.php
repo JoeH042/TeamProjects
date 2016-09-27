@@ -54,7 +54,7 @@ Word VARCHAR(30) NOT NULL,
 Status VARCHAR(30) NOT NULL
 )");
 
-mysql_query("CREATE TABLE Grounp (
+mysql_query("CREATE TABLE Groups (
 Group_ID INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 Group_Name VARCHAR(30) NOT NULL,
 Group_Description VARCHAR(30) NOT NULL
