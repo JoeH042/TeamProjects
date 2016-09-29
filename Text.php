@@ -37,18 +37,14 @@
 </body>
 </html>
 <?php
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
     if($_SERVER ['REQUEST_METHOD']=='POST')//check if user submit the form
 {
     
-    
-
    
     $SenderNum = $_POST['s_num'];
     $ReceiverNum = $_POST['r_num'];
@@ -56,7 +52,7 @@
      $TextStatus = $_POST['statues'];
      $SendD = $_POST['s_d'];
      $ReceiveD = $_POST['r_d'];
-    
+   
    if(!empty($SenderNum)&&!empty($ReceiverNum)&&!empty($Text)&&!empty($TextStatus)&&!empty($SendD)&&!empty($ReceiveD)){
         //check if value filled or not
        echo "hello";
@@ -84,17 +80,14 @@ else
     echo"Please complete the form";
     
 }
-
 ?>
 
 
 
 
 <?php
-
 $connect = mysql_connect("127.0.0.1","root","");
 $db = mysql_select_db("CEG4981",$connect);
-
 echo '<table align="left"
 cellspacing="5" cellpadding="8">
 <tr>
@@ -106,6 +99,13 @@ cellspacing="5" cellpadding="8">
 <td align="left"><b>Receiving Date</b></td>
 </tr>';
 $r = mysql_query("SELECT * FROM Text"); 
+if(isset($_GET['recordId'])){
+    $id = mysql_real_escape_string($_GET['recordId']);
+    
+    $sql_delete="DELETE FROM Text WHERE Text_ID={$id}";
+    mysql_query($sql_delete) or die(mysql_error());
+    header("Location: Text.php");
+}
 while($row = mysql_fetch_array($r)){
     //output value from database table
     echo  '<tr><td align="left">' .
@@ -116,6 +116,12 @@ while($row = mysql_fetch_array($r)){
             $row['Date_sent']. '</td><td align="left">' .
             $row['Date_recieved']. '</td><td align="left">' 
              ;
+              ;?>
+  <div class="toolbar">
+    <a href="Text.php?recordId=<?php echo $row['Text_ID'];?>">Delete</a>
+</div>
+
+<?php
     echo '</tr>';
 }
 echo '</table>';
