@@ -87,6 +87,13 @@ cellspacing="5" cellpadding="8">
 <td align="left"><b>Group Description</b></td>
 </tr>';
 $r = mysql_query("SELECT * FROM Groups"); 
+if(isset($_GET['recordId'])){
+    $id = mysql_real_escape_string($_GET['recordId']);
+    
+    $sql_delete="DELETE FROM Groups WHERE Group_ID={$id}";
+    mysql_query($sql_delete) or die(mysql_error());
+    header("Location: Group.php");
+}
 while($row = mysql_fetch_array($r)){
     //output value from database table
     echo  '<tr><td align="left">' .
@@ -94,7 +101,15 @@ while($row = mysql_fetch_array($r)){
             $row['Group_Name']. '</td><td align="left">' .
             $row['Group_Description']. '</td><td align="left">'
              ;
-    echo '</tr>';
+    
+   ?>
+<div class="toolbar">
+    <a href="Group.php?recordId=<?php echo $row['Group_ID'];?>">Delete</a>
+</div>
+       
+        
+<?php
+ echo '</tr>';
 }
 echo '</table>';
 ?>
