@@ -39,10 +39,16 @@
 <p>Group Number:
 <input type="text" name="groupNum" size="30"  value="" />
 </p>
-
+<p>Member Starting Date(d/m/y):
+<input type="text" name="m_startda" size="30" value="" />
+</p>
+<p>Member Ending Date(d/m/y):
+<input type="text" name="m_endda" size="30" value="" />
+</p>
 <p>
 <input type="submit" name="submit" value="Send" />
 </p>
+
 
 </form>
     
@@ -76,17 +82,17 @@
     $Status= $_POST['status'];
     $Department= $_POST['department'];
     $GroupNumber= $_POST['groupNum'];
-    $RegDate = date("d/m/y" ,time());
-    
+    $M_startD = $_POST['m_startda'];
+    $M_endD = $_POST['m_endda'];
 
-   if(!empty($Firstname)&&!empty($Middlename)&&!empty($Lastname)&&!empty($Email)&&!empty($PhoneNumber)&&!empty($Status)&&!empty($Department)&&!empty($GroupNumber)){
+   if(!empty($Firstname)&&!empty($Middlename)&&!empty($Lastname)&&!empty($Email)&&!empty($PhoneNumber)&&!empty($Status)&&!empty($Department)&&!empty($GroupNumber)&&!empty($M_startD)&&!empty($M_endD)){
         //check if value filled or not
   echo "hello";
        $connect = mysql_connect("127.0.0.1","root","");
         $db = mysql_select_db("CEG4981",$connect);
         echo "table  a  created!";
 
-        $sql="INSERT INTO Employee (Firstname,Middlename,Lastname,Email,Phone,Status,Group_ID,Department,reg_date) VALUES ('$Firstname','$Middlename','$Lastname','$Email','$PhoneNumber','$Status','$Department','$GroupNumber','$RegDate')";
+        $sql="INSERT INTO Employee (Firstname,Middlename,Lastname,Email,Phone,Status,Group_ID,Department,Date_Start,Date_End) VALUES ('$Firstname','$Middlename','$Lastname','$Email','$PhoneNumber','$Status','$Department','$GroupNumber','$M_startD','$M_endD')";
         
         
         mysql_query($sql,$connect);
@@ -97,7 +103,6 @@
     }
    
     
-    unset($Firstname,$Middlename,$Lastname,$Email,$PhoneNumber,$Status,$Department,$GroupNumber);
     
 }
 else
@@ -144,7 +149,8 @@ while($row = mysql_fetch_array($r)){
             $row['Status']. '</td><td align="left">' .
             $row['Department']. '</td><td align="left">'.
             $row['Group_ID']. '</td><td align="left">' .
-            $row['reg_date']. '</td><td align="left">' ;
+            $row['Date_Start']. '</td><td align="left">' .
+            $row['Date_End']. '</td><td align="left">' ;
     echo '</tr>';
 }
 echo '</table>';
