@@ -91,6 +91,13 @@ cellspacing="5" cellpadding="8">
 <td align="left"><b>Manager Number</b></td>
 </tr>';
 $r = mysql_query("SELECT * FROM Department"); 
+if(isset($_GET['recordId'])){
+    $id = mysql_real_escape_string($_GET['recordId']);
+    
+    $sql_delete="DELETE FROM Department WHERE Dept_ID={$id}";
+    mysql_query($sql_delete) or die(mysql_error());
+    header("Location: Department.php");
+}
 while($row = mysql_fetch_array($r)){
     //output value from database table
     echo  '<tr><td align="left">' .
@@ -98,8 +105,13 @@ while($row = mysql_fetch_array($r)){
             $row['Dept_Name']. '</td><td align="left">' .
             $row['Dept_Description']. '</td><td align="left">' .
             $row['Manager_Num']. '</td><td align="left">' 
-             ;
-    echo '</tr>';
+             ;?>
+  <div class="toolbar">
+    <a href="Department.php?recordId=<?php echo $row['Dept_ID'];?>">Delete</a>
+</div>
+
+<?php
+echo '</tr>';
 }
 echo '</table>';
 ?>
