@@ -16,7 +16,8 @@ Phone VARCHAR(50),
 Status VARCHAR(15),
 Department VARCHAR(15),
 Group_ID VARCHAR(15),
-reg_date DATE
+Date_Start DATE,
+Date_End DATE
 )");
 
 mysql_query("CREATE TABLE TM_Member_Of_Grp (
