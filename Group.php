@@ -27,23 +27,19 @@
 
 
 <?php
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
     if($_SERVER ['REQUEST_METHOD']=='POST')//check if user submit the form
 {
     
     
-
    
     $GroupName = $_POST['g_name'];
     $GroupDes = $_POST['g_des'];
      //unset($id,$Firstname,$Middlename,$Lastname,$Email,$PhoneNumber,$Status,$Department,$TeamNumber);
-
    if(!empty($GroupName)&&!empty($GroupDes)){
         //check if value filled or not
        echo "hello";
@@ -71,14 +67,11 @@ else
     echo"Please complete the form";
     
 }
-
 ?>
 
 <?php
-
 $connect = mysql_connect("127.0.0.1","root","");
 $db = mysql_select_db("CEG4981",$connect);
-
 echo '<table align="left"
 cellspacing="5" cellpadding="8">
 <tr>
