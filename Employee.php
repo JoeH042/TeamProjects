@@ -39,12 +39,7 @@
 <p>Group Number:
 <input type="text" name="groupNum" size="30"  value="" />
 </p>
-<p>Member Starting Date(d/m/y):
-<input type="text" name="m_startda" size="30" value="" />
-</p>
-<p>Member Ending Date(d/m/y):
-<input type="text" name="m_endda" size="30" value="" />
-</p>
+
 <p>
 <input type="submit" name="submit" value="Send" />
 </p>
@@ -61,13 +56,11 @@
 
 
 <?php
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
     if($_SERVER ['REQUEST_METHOD']=='POST')//check if user submit the form
 {
     //link input to table
@@ -82,17 +75,14 @@
     $Status= $_POST['status'];
     $Department= $_POST['department'];
     $GroupNumber= $_POST['groupNum'];
-    $M_startD = $_POST['m_startda'];
-    $M_endD = $_POST['m_endda'];
-
-   if(!empty($Firstname)&&!empty($Middlename)&&!empty($Lastname)&&!empty($Email)&&!empty($PhoneNumber)&&!empty($Status)&&!empty($Department)&&!empty($GroupNumber)&&!empty($M_startD)&&!empty($M_endD)){
+    
+   if(!empty($Firstname)&&!empty($Lastname)&&!empty($Email)&&!empty($PhoneNumber)&&!empty($Status)&&!empty($Department)&&!empty($GroupNumber)){
         //check if value filled or not
   echo "hello";
        $connect = mysql_connect("127.0.0.1","root","");
         $db = mysql_select_db("CEG4981",$connect);
         echo "table  a  created!";
-
-        $sql="INSERT INTO Employee (Firstname,Middlename,Lastname,Email,Phone,Status,Group_ID,Department,Date_Start,Date_End) VALUES ('$Firstname','$Middlename','$Lastname','$Email','$PhoneNumber','$Status','$Department','$GroupNumber','$M_startD','$M_endD')";
+        $sql="INSERT INTO Employee (Firstname,Middlename,Lastname,Email,Phone,Status,Group_ID,Department) VALUES ('$Firstname','$Middlename','$Lastname','$Email','$PhoneNumber','$Status','$Department','$GroupNumber')";
         
         
         mysql_query($sql,$connect);
@@ -111,17 +101,13 @@ else
     echo"Please complete the form";
     
 }
-
 //header("refresh:2; url=Employee.php ");
-
 ?>
 
 
 <?php
-
 $connect = mysql_connect("127.0.0.1","root","");
 $db = mysql_select_db("CEG4981",$connect);
-
 echo '<table align="left"
 cellspacing="5" cellpadding="8">
 <tr>
@@ -132,7 +118,7 @@ cellspacing="5" cellpadding="8">
 <td align="left"><b>Email</b></td>
 <td align="left"><b>Phone Number</b></td>
 <td align="left"><b>Status</b></td>
-<td align="left"><b>Department</b></td>
+<td align="left"><b>Department ID</b></td>
 <td align="left"><b>Group ID</b></td>
 <td align="left"><b>Register Date</b></td>
 </tr>';
@@ -149,9 +135,15 @@ while($row = mysql_fetch_array($r)){
             $row['Status']. '</td><td align="left">' .
             $row['Department']. '</td><td align="left">'.
             $row['Group_ID']. '</td><td align="left">' .
-            $row['Date_Start']. '</td><td align="left">' .
-            $row['Date_End']. '</td><td align="left">' ;
+            $row['Date_Start']. '</td><td align="left">'  ;
     echo '</tr>';
 }
 echo '</table>';
-?>
+?><?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
