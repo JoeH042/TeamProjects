@@ -1,11 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Sep 30, 2016 at 06:02 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.5.38
+DROP DATABASE IF EXISTS CEG4981;
+CREATE DATABASE CEG4981;
+USE CEG4981;  -- MySQL command
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
