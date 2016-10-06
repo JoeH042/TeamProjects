@@ -143,9 +143,9 @@ CREATE TABLE `Text` (
   `Sender_Num` int(11) UNSIGNED NOT NULL,
   `Recieve_Num` int(11) UNSIGNED NOT NULL,
   `Text` text NOT NULL,
-  `Status` set('Active','Inactive') DEFAULT NULL,
+  `View_Status` set('Read','Unread') DEFAULT NULL,
   `Cost` int(9) UNSIGNED NOT NULL,
-  `Status` set('Unsent','Sent','Delievered') DEFAULT NULL,
+  `Msg_Status` set('Unsent','Sent','Delievered') DEFAULT NULL,
   `Date_sent` datetime DEFAULT NULL,
   `Date_recieved` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
