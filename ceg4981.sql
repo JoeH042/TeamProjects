@@ -138,10 +138,14 @@ INSERT INTO `Role` (`Role_ID`, `Role_Name`, `Role_Description`, `Group_Number`, 
 
 CREATE TABLE `Text` (
   `Text_ID` int(9) UNSIGNED NOT NULL,
-  `Sender_Num` int(10) UNSIGNED NOT NULL,
-  `Recieve_Num` int(10) UNSIGNED NOT NULL,
+  `Msg_SID` varchar(40),
+  `Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
+  `Sender_Num` int(11) UNSIGNED NOT NULL,
+  `Recieve_Num` int(11) UNSIGNED NOT NULL,
   `Text` text NOT NULL,
   `Status` set('Active','Inactive') DEFAULT NULL,
+  `Cost` int(9) UNSIGNED NOT NULL,
+  `Status` set('Unsent','Sent','Delievered') DEFAULT NULL,
   `Date_sent` datetime DEFAULT NULL,
   `Date_recieved` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
