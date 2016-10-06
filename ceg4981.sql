@@ -12,7 +12,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ceg4981`
+-- Database: `CEG4981`
 --
 
 -- --------------------------------------------------------
@@ -84,6 +84,29 @@ CREATE TABLE `Groups` (
 INSERT INTO `Groups` (`Group_ID`, `Group_Name`, `Group_Description`) VALUES
 (1, 'Fire', 'first responder of fire scene'),
 (2, 'Chemecial', 'First responder of chemical scene');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Login`
+--
+
+CREATE TABLE `Login` (
+  `User_ID` int(9) UNSIGNED NOT NULL,
+  `User_Name` varchar(30) NOT NULL,
+  `User_Password` varchar(30) NOT NULL,
+  `User_Role` varchar(30) NOT NULL,
+  `EM_ID` int(9) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Login`
+--
+
+INSERT INTO `Login` (`User_ID`, `User_Name`, `User_Password`, `User_Role`, `EM_ID`) VALUES
+(1, 'w079yxw', 'pass', 'account', 5),
+(2, 'w067kxk', 'password', 'manager', 10),
+(10, 'wangy5153', 'passw', 'contact', 12);
 
 -- --------------------------------------------------------
 
@@ -204,6 +227,12 @@ ALTER TABLE `Groups`
   ADD PRIMARY KEY (`Group_ID`);
 
 --
+-- Indexes for table `Login`
+--
+ALTER TABLE `Login`
+  ADD PRIMARY KEY (`User_ID`);
+
+--
 -- Indexes for table `Role`
 --
 ALTER TABLE `Role`
@@ -246,6 +275,11 @@ ALTER TABLE `Employee`
 --
 ALTER TABLE `Groups`
   MODIFY `Group_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `Login`
+--
+ALTER TABLE `Login`
+  MODIFY `User_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `Role`
 --
