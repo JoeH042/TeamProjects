@@ -1,6 +1,7 @@
-DROP DATABASE IF EXISTS CEG4981;
-CREATE DATABASE CEG4981;
-USE CEG4981;  -- MySQL command
+-- create and select the database
+DROP DATABASE IF EXISTS rhodes;
+CREATE DATABASE rhodes;
+USE rhodes;  
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -91,22 +92,20 @@ INSERT INTO `Groups` (`Group_ID`, `Group_Name`, `Group_Description`) VALUES
 -- Table structure for table `Login`
 --
 
-CREATE TABLE `Login` (
-  `User_ID` int(9) UNSIGNED NOT NULL,
-  `User_Name` varchar(30) NOT NULL,
-  `User_Password` varchar(30) NOT NULL,
-  `User_Role` varchar(30) NOT NULL,
-  `EM_ID` int(9) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE Login (
+  User_ID       INT(8)         NOT NULL   AUTO_INCREMENT,
+  User_Name     VARCHAR(80)    NOT NULL,
+  User_Password	   	 VARCHAR(80),
+  EM_ID       INT(8)         NOT NULL,
+  PRIMARY KEY (User_ID),
+  CONSTRAINT FOREIGN KEY (EM_ID) references Employee (id)
+);
 --
 -- Dumping data for table `Login`
 --
 
-INSERT INTO `Login` (`User_ID`, `User_Name`, `User_Password`, `User_Role`, `EM_ID`) VALUES
-(1, 'w079yxw', 'pass', 'account', 5),
-(2, 'w067kxk', 'password', 'manager', 10),
-(10, 'wangy5153', 'passw', 'contact', 12);
+
 
 -- --------------------------------------------------------
 
@@ -229,8 +228,6 @@ ALTER TABLE `Groups`
 --
 -- Indexes for table `Login`
 --
-ALTER TABLE `Login`
-  ADD PRIMARY KEY (`User_ID`);
 
 --
 -- Indexes for table `Role`
@@ -275,11 +272,6 @@ ALTER TABLE `Employee`
 --
 ALTER TABLE `Groups`
   MODIFY `Group_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `Login`
---
-ALTER TABLE `Login`
-  MODIFY `User_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `Role`
 --
