@@ -1,7 +1,7 @@
 -- create and select the database
-DROP DATABASE IF EXISTS rhodes;
-CREATE DATABASE rhodes;
-USE rhodes;  
+DROP DATABASE IF EXISTS CEG4981;
+CREATE DATABASE CEG4981;
+USE CEG4981;  
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
