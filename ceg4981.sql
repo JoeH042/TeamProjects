@@ -139,7 +139,7 @@ INSERT INTO `Role` (`Role_ID`, `Role_Name`, `Role_Description`, `Group_Number`, 
 CREATE TABLE `Text` (
   `Text_ID` int(9) UNSIGNED NOT NULL,
   `Msg_SID` varchar(40),
-  `Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
+  `Direction` set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
   `Sender_Num` int(11) UNSIGNED NOT NULL,
   `Recieve_Num` int(11) UNSIGNED NOT NULL,
   `Text` text NOT NULL,
@@ -154,9 +154,6 @@ CREATE TABLE `Text` (
 -- Dumping data for table `Text`
 --
 
-INSERT INTO `Text` (`Text_ID`, `Sender_Num`, `Recieve_Num`, `Text`, `Status`, `Date_sent`, `Date_recieved`) VALUES
-(1, 937123456, 937654321, 'Hello. Need to meet up @ 10 pm in lobby.', 'Active', '2012-12-16 21:13:22', '2012-12-16 21:16:23'),
-(2, 93745678, 45678937, 'Time to eat, urgent!!', 'Inactive', '2016-09-11 10:11:12', '2016-09-11 10:13:00');
 
 -- --------------------------------------------------------
 
