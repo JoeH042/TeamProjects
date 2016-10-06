@@ -13,9 +13,10 @@
     <body>
         <header>
             <!--logo here -->
-            <a href="index.php?action=home_view"><h1>Incident Command</h1></a>
+            <a class="logo" href="index.php?action=home_view"><h1>Incident Command</h1></a>
+            <a class="logout" href="index.php?action=logout">Logout</a>
             <!--Menu -->
-            <ul>
+            <ul class="nav_bar">
                 <!-- dropdown menu from W3 schools http://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_dropdown_navbar -->
                 <li class = "dropdown">
                     <a href="#" class="dropbtn">Directory</a>
@@ -27,6 +28,5 @@
                 <li><a href="index.php?action=send_messages_view">Send Message</a></li>
                 <li><a href="index.php?action=view_messages_view">View Messages</a></li>
                 <li><a href="index.php?action=profile_view">Profile</a></li> <!--Allows Administrators to Create new Username/Passwords-->
-                <li><a href="index.php?action=logout">Logout</a></li>
             </ul>
         </header>
