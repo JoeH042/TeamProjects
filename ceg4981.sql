@@ -4,12 +4,7 @@ CREATE DATABASE CEG4981;
 USE CEG4981;  -- MySQL command
 
 
--- drop tables in reverse order
--- DROP TABLE IF EXISTS 'managers';
--- DROP TABLE IF EXISTS 'group_members';
--- DROP TABLE IF EXISTS 'individuals';
--- DROP TABLE IF EXISTS 'roles';
--- DROP TABLE IF EXISTS 'groups';
+
 
 -- create the tables
 
