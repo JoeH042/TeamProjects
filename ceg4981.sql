@@ -1,198 +1,129 @@
 -- create and select the database
 DROP DATABASE IF EXISTS CEG4981;
 CREATE DATABASE CEG4981;
-USE CEG4981;  
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+USE CEG4981;  -- MySQL command
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- drop tables in reverse order
+-- DROP TABLE IF EXISTS 'managers';
+-- DROP TABLE IF EXISTS 'group_members';
+-- DROP TABLE IF EXISTS 'individuals';
+-- DROP TABLE IF EXISTS 'roles';
+-- DROP TABLE IF EXISTS 'groups';
 
---
--- Database: `CEG4981`
---
+-- create the tables
 
--- --------------------------------------------------------
+CREATE TABLE Groups (
+  Group_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+  Group_Name         VARCHAR(80)    NOT NULL,
+  Group_Description  VARCHAR(500),   
+  PRIMARY KEY (Group_ID)
+);
 
---
--- Table structure for table `Department`
---
 
-CREATE TABLE `Department` (
-  `Dept_ID` int(9) UNSIGNED NOT NULL,
-  `Dept_Name` varchar(30) NOT NULL,
-  `Dept_Description` text NOT NULL,
-  `Manager_Num` int(9) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE Employee (
+  EM_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+  EM_Firstname VARCHAR(30) NOT NULL,
+  EM_Middlename VARCHAR(30) NOT NULL,
+  EM_Lastname VARCHAR(30) NOT NULL,
+  EM_Email VARCHAR(50) DEFAULT NULL,
+  EM_Phone INT(10) UNSIGNED DEFAULT NULL,
+  EM_Statu set('Active','Inactive') DEFAULT NULL,
+  EM_Department_ID int(9) UNSIGNED DEFAULT NULL,
+  EM_Group_ID int(9) UNSIGNED DEFAULT NULL,
+  EM_Date_Start datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (EM_ID)
+  );
+CREATE TABLE Department (
+  Dept_ID 	int(9) 	UNSIGNED 	NOT NULL 	AUTO_INCREMENT,
+  Dept_Name 	varchar(30) 	NOT NULL,
+  Dept_Description 	text 	NOT NULL,
+  Manager_ID int(9) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (Dept_ID),
+  CONSTRAINT FOREIGN KEY (Manager_ID) references Employee (EM_ID)
+);
 
---
--- Dumping data for table `Department`
---
+-- ALTER TABLE Employee
+-- ADD CONSTRAINT fk_grpID FOREIGN KEY (EM_Group_ID) references Groups (Group_ID),
+-- ADD CONSTRAINT fk_emID FOREIGN KEY (EM_Department_ID) references Department (Dept_ID);
 
-INSERT INTO `Department` (`Dept_ID`, `Dept_Name`, `Dept_Description`, `Manager_Num`) VALUES
-(1, 'CEG', 'Computer Engineering', 3),
-(2, 'CS', 'COMPUTER SCIENCE', 2),
-(3, 'Mth', 'Mathmatics', 1);
+CREATE TABLE Roles (
+ 
+  Role_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+  Role_Name varchar(30) NOT NULL,
+  Role_Description text,
+  Group_ID int(9) UNSIGNED DEFAULT NULL,
+  EM_ID int(9) UNSIGNED DEFAULT NULL,
+  Group_Supervisor_ID int(9) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (Role_ID),
+  CONSTRAINT FOREIGN KEY (Group_ID) references Groups (Group_ID),
+  CONSTRAINT FOREIGN KEY (EM_ID) references Employee (EM_ID),
+  CONSTRAINT FOREIGN KEY (Group_Supervisor_ID) references Employee (EM_ID)
+   );
 
--- --------------------------------------------------------
+CREATE TABLE Login (
 
---
--- Table structure for table `Employee`
---
+  User_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+  User_name varchar(30) NOT NULL,
+  User_Password varchar(30) NOT NULL,
+  User_Role varchar(30) NOT NULL,
+  EM_ID int(9) UNSIGNED NOT NULL,
+  PRIMARY KEY (User_ID),
+  CONSTRAINT FOREIGN KEY (EM_ID) references Employee (EM_ID)
+);
+CREATE TABLE Texts (
+  Text_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+  Msg_SID varchar(40) DEFAULT NULL,
+  Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
+  Sender_Num int(11) UNSIGNED NOT NULL,
+  Recieve_Num int(11) UNSIGNED NOT NULL,
+  Text_Content text NOT NULL,
+  View_Status set('Read','Unread') DEFAULT NULL,
+  Cost int(9) UNSIGNED NOT NULL,
+  Msg_Status set('Unsent','Sent','Delievered') DEFAULT NULL,
+  Date_sent datetime DEFAULT NULL,
+  Date_recieved datetime DEFAULT NULL,
+  PRIMARY KEY (Text_ID)
+);
 
-CREATE TABLE `Employee` (
-  `id` int(9) UNSIGNED NOT NULL,
-  `Firstname` varchar(30) NOT NULL,
-  `Middlename` varchar(30) NOT NULL,
-  `Lastname` varchar(30) NOT NULL,
-  `Email` varchar(50) DEFAULT NULL,
-  `Phone` int(10) UNSIGNED DEFAULT NULL,
-  `Status` set('Active','Inactive') DEFAULT NULL,
-  `Department` int(9) UNSIGNED DEFAULT NULL,
-  `Group_ID` int(9) UNSIGNED DEFAULT NULL,
-  `Date_Start` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE TM_Member_Of_Grp (
+  EM_ID int(9) UNSIGNED NOT NULL,
+  Group_ID int(9) UNSIGNED NOT NULL,
+  Member_StartingDate datetime DEFAULT CURRENT_TIMESTAMP,
+  Member_EndingDate datetime DEFAULT NULL,
+  PRIMARY KEY (EM_ID,Group_ID)
+) ;
 
---
--- Dumping data for table `Employee`
---
-
-INSERT INTO `Employee` (`id`, `Firstname`, `Middlename`, `Lastname`, `Email`, `Phone`, `Status`, `Department`, `Group_ID`, `Date_Start`) VALUES
+CREATE TABLE Word_Filter (
+  Word_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
+  Word varchar(30) NOT NULL,
+  Word_Status set('Active','Inactive') DEFAULT NULL,
+  PRIMARY KEY (Word_ID)
+);
+-- populate the database
+INSERT INTO Employee VALUES
 (1, 'Mary', 'M', 'Brown', 'm.123@wright.edu', 937123456, 'Active', 1, 12, '2016-09-29 23:29:31'),
 (2, 'Anna', '', 'Lee', 'A321@wright.edu', 937654321, 'Inactive', 1, 3, '2016-09-29 23:30:04'),
 (3, 'Wendy', '', 'Meyer', 'W.156@wright.edu', 4294967295, 'Active', 1, 2, '2016-09-29 23:30:46');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `Groups`
---
-
-CREATE TABLE `Groups` (
-  `Group_ID` int(9) UNSIGNED NOT NULL,
-  `Group_Name` varchar(30) NOT NULL,
-  `Group_Description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Groups`
---
-
-INSERT INTO `Groups` (`Group_ID`, `Group_Name`, `Group_Description`) VALUES
+INSERT INTO Department VALUES
+(1, 'CEG', 'Computer Engineering', 3),
+(2, 'CS', 'COMPUTER SCIENCE', 2),
+(3, 'Mth', 'Mathmatics', 1);
+INSERT INTO Groups VALUES
 (1, 'Fire', 'first responder of fire scene'),
 (2, 'Chemecial', 'First responder of chemical scene');
+INSERT INTO Roles VALUES
+(1, 'account', 'founding management', 1, 3, 2),
+(2, 'Customer Service', 'Front end customer issue addressing', 2, 1, 3);
 
--- --------------------------------------------------------
+INSERT INTO Login VALUES
+(1, 'Anna Lee', 'Password', 'Password', 2);
 
---
--- Table structure for table `Login`
---
-
-
-CREATE TABLE Login (
-  User_ID       INT(8)         NOT NULL   AUTO_INCREMENT,
-  User_Name     VARCHAR(80)    NOT NULL,
-  User_Password	   	 VARCHAR(80),
-  EM_ID       INT(8)         NOT NULL,
-  PRIMARY KEY (User_ID),
-  CONSTRAINT FOREIGN KEY (EM_ID) references Employee (id)
-);
---
--- Dumping data for table `Login`
---
-
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Role`
---
-
-CREATE TABLE `Role` (
-  `Role_ID` int(9) UNSIGNED NOT NULL,
-  `Role_Name` varchar(30) NOT NULL,
-  `Role_Description` text,
-  `Group_Number` int(9) UNSIGNED DEFAULT NULL,
-  `Member_id` int(9) UNSIGNED DEFAULT NULL,
-  `Role_Report_To` int(9) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Role`
---
-
-INSERT INTO `Role` (`Role_ID`, `Role_Name`, `Role_Description`, `Group_Number`, `Member_id`, `Role_Report_To`) VALUES
-(1, 'account', 'founding management', 1, 3, 5),
-(2, 'Customer Service', 'Front end customer issue addressing', 3, 6, 9);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Text`
---
-
-CREATE TABLE `Text` (
-  `Text_ID` int(9) UNSIGNED NOT NULL,
-  `Msg_SID` varchar(40),
-  `Direction` set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
-  `Sender_Num` int(11) UNSIGNED NOT NULL,
-  `Recieve_Num` int(11) UNSIGNED NOT NULL,
-  `Text` text NOT NULL,
-  `View_Status` set('Read','Unread') DEFAULT NULL,
-  `Cost` int(9) UNSIGNED NOT NULL,
-  `Msg_Status` set('Unsent','Sent','Delievered') DEFAULT NULL,
-  `Date_sent` datetime DEFAULT NULL,
-  `Date_recieved` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Text`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `TM_Member_Of_Grp`
---
-
-CREATE TABLE `TM_Member_Of_Grp` (
-  `Member_ID` int(9) UNSIGNED NOT NULL,
-  `Group_ID` int(9) UNSIGNED NOT NULL,
-  `Member_StartingDate` datetime DEFAULT CURRENT_TIMESTAMP,
-  `Member_EndingDate` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `TM_Member_Of_Grp`
---
-
-INSERT INTO `TM_Member_Of_Grp` (`Member_ID`, `Group_ID`, `Member_StartingDate`, `Member_EndingDate`) VALUES
+INSERT INTO TM_Member_Of_Grp VALUES
 (3, 7, '2016-09-29 23:33:48', NULL),
 (8, 3, '2016-09-29 23:33:54', NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `Word_Filter`
---
-
-CREATE TABLE `Word_Filter` (
-  `Word_ID` int(9) UNSIGNED NOT NULL,
-  `Word` varchar(30) NOT NULL,
-  `Status` set('Active','Inactive') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `Word_Filter`
---
-
-INSERT INTO `Word_Filter` (`Word_ID`, `Word`, `Status`) VALUES
+INSERT INTO   Word_Filter VALUES
 (1, 'a', 'Active'),
 (2, 'the ', 'Active'),
 (3, 'copy', 'Active'),
@@ -205,89 +136,4 @@ INSERT INTO `Word_Filter` (`Word_ID`, `Word`, `Status`) VALUES
 (10, 'dangerous', 'Active');
 
 --
--- Indexes for dumped tables
---
 
---
--- Indexes for table `Department`
---
-ALTER TABLE `Department`
-  ADD PRIMARY KEY (`Dept_ID`);
-
---
--- Indexes for table `Employee`
---
-ALTER TABLE `Employee`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `Groups`
---
-ALTER TABLE `Groups`
-  ADD PRIMARY KEY (`Group_ID`);
-
---
--- Indexes for table `Login`
---
-
---
--- Indexes for table `Role`
---
-ALTER TABLE `Role`
-  ADD PRIMARY KEY (`Role_ID`);
-
---
--- Indexes for table `Text`
---
-ALTER TABLE `Text`
-  ADD PRIMARY KEY (`Text_ID`);
-
---
--- Indexes for table `TM_Member_Of_Grp`
---
-ALTER TABLE `TM_Member_Of_Grp`
-  ADD PRIMARY KEY (`Member_ID`,`Group_ID`);
-
---
--- Indexes for table `Word_Filter`
---
-ALTER TABLE `Word_Filter`
-  ADD PRIMARY KEY (`Word_ID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Department`
---
-ALTER TABLE `Department`
-  MODIFY `Dept_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `Employee`
---
-ALTER TABLE `Employee`
-  MODIFY `id` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `Groups`
---
-ALTER TABLE `Groups`
-  MODIFY `Group_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `Role`
---
-ALTER TABLE `Role`
-  MODIFY `Role_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `Text`
---
-ALTER TABLE `Text`
-  MODIFY `Text_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `Word_Filter`
---
-ALTER TABLE `Word_Filter`
-  MODIFY `Word_ID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
