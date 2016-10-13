@@ -22,7 +22,7 @@ CREATE TABLE Employee (
   EM_Middlename VARCHAR(30) NOT NULL,
   EM_Lastname VARCHAR(30) NOT NULL,
   EM_Email VARCHAR(50) DEFAULT NULL,
-  EM_Phone INT(10) UNSIGNED DEFAULT NULL,
+  EM_Phone INT(20) UNSIGNED DEFAULT NULL,
   EM_Statu set('Active','Inactive') DEFAULT NULL,
   EM_Department_ID int(9) UNSIGNED DEFAULT NULL,
   EM_Group_ID int(9) UNSIGNED DEFAULT NULL,
@@ -63,6 +63,7 @@ CREATE TABLE Login (
   User_Password varchar(30) NOT NULL,
   User_Role varchar(30) NOT NULL,
   EM_ID int(9) UNSIGNED NOT NULL,
+  Last_login datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (User_ID),
   CONSTRAINT FOREIGN KEY (EM_ID) references Employee (EM_ID)
 );
@@ -100,7 +101,7 @@ INSERT INTO Employee VALUES
 (1, 'Mary', 'M', 'Brown', 'm.123@wright.edu', 937123456, 'Active', 1, 12, '2016-09-29 23:29:31'),
 (2, 'Anna', '', 'Lee', 'A321@wright.edu', 937654321, 'Inactive', 1, 3, '2016-09-29 23:30:04'),
 (3, 'Wendy', '', 'Meyer', 'W.156@wright.edu', 4294967295, 'Active', 1, 2, '2016-09-29 23:30:46');
-
+(5, 'Yipeng', '', 'Wang', 'wang.161@wright.edu', 93723123, 'Active', 1, 2, '2016-10-12 08:23:46');
 INSERT INTO Department VALUES
 (1, 'CEG', 'Computer Engineering', 3),
 (2, 'CS', 'COMPUTER SCIENCE', 2),
