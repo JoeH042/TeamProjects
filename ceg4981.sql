@@ -113,6 +113,11 @@ INSERT INTO Roles VALUES
 (1, 'account', 'founding management', 1, 3, 2),
 (2, 'Customer Service', 'Front end customer issue addressing', 2, 1, 3);
 
+INSERT INTO Login VALUES
+(1, 'w079yxw', 'pass', 'admin', 5, '2016-10-12 08:23:46'),
+(2, 'w123', 'haha', 'admin', 3, '2016-10-12 08:23:46');
+
+
 
 INSERT INTO TM_Member_Of_Grp VALUES
 (3, 7, '2016-09-29 23:33:48', NULL),
