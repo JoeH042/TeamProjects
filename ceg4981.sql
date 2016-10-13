@@ -115,7 +115,7 @@ INSERT INTO Roles VALUES
 
 INSERT INTO Login VALUES
 (1, 'Anna Lee', 'Password', 'Password', 2);
-
+(2, 'w079yxw', 'oass', 'admin', 5);
 INSERT INTO TM_Member_Of_Grp VALUES
 (3, 7, '2016-09-29 23:33:48', NULL),
 (8, 3, '2016-09-29 23:33:54', NULL);
