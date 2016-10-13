@@ -100,7 +100,7 @@ CREATE TABLE Word_Filter (
 INSERT INTO Employee VALUES
 (1, 'Mary', 'M', 'Brown', 'm.123@wright.edu', 937123456, 'Active', 1, 12, '2016-09-29 23:29:31'),
 (2, 'Anna', '', 'Lee', 'A321@wright.edu', 937654321, 'Inactive', 1, 3, '2016-09-29 23:30:04'),
-(3, 'Wendy', '', 'Meyer', 'W.156@wright.edu', 4294967295, 'Active', 1, 2, '2016-09-29 23:30:46');
+(3, 'Wendy', '', 'Meyer', 'W.156@wright.edu', 4294967295, 'Active', 1, 2, '2016-09-29 23:30:46'),
 (5, 'Yipeng', '', 'Wang', 'wang.161@wright.edu', 93723123, 'Active', 1, 2, '2016-10-12 08:23:46');
 INSERT INTO Department VALUES
 (1, 'CEG', 'Computer Engineering', 3),
@@ -113,9 +113,7 @@ INSERT INTO Roles VALUES
 (1, 'account', 'founding management', 1, 3, 2),
 (2, 'Customer Service', 'Front end customer issue addressing', 2, 1, 3);
 
-INSERT INTO Login VALUES
-(1, 'Anna Lee', 'Password', 'Password', 2);
-(2, 'w079yxw', 'oass', 'admin', 5);
+
 INSERT INTO TM_Member_Of_Grp VALUES
 (3, 7, '2016-09-29 23:33:48', NULL),
 (8, 3, '2016-09-29 23:33:54', NULL);
