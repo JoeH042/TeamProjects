@@ -60,7 +60,7 @@ CREATE TABLE Login (
 
   User_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   User_name varchar(30) NOT NULL,
-  User_Password varchar(30) NOT NULL,
+  User_Password varchar(50) NOT NULL,
   User_Role varchar(30) NOT NULL,
   EM_ID int(9) UNSIGNED NOT NULL,
   Last_login datetime DEFAULT CURRENT_TIMESTAMP,
@@ -114,8 +114,10 @@ INSERT INTO Roles VALUES
 (2, 'Customer Service', 'Front end customer issue addressing', 2, 1, 3);
 
 INSERT INTO Login VALUES
-(1, 'w079yxw', 'pass', 'admin', 5, '2016-10-12 08:23:46'),
-(2, 'w123', 'haha', 'admin', 3, '2016-10-12 08:23:46');
+(1, 'w079yxw', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'admin', 5, '2016-10-12 08:23:46'),--password is pass
+(2, 'w123', '637d1f5c6e6d1be22ed907eb3d223d858ca396d8', 'admin', 3, '2016-10-12 08:23:46'), --password is haha
+(3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 08:23:46'); --password is password
+
 
 
 
