@@ -15,7 +15,7 @@
         <header>
             <!--logo here -->
             <h1>Incident Command Database</h1>
-        
+            <a class="login" href="index.php?action=login">Login</a>
+            
         </header>
-        
         

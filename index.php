@@ -8,11 +8,14 @@ require_once('model/user_db.php');
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
-    if ($action == NULL) {
+    if ($action == NULL ) {
         $action = 'home_view';
-    }    
-}
-
+    } 
+} 
+if (!isset($_SESSION['is_valid_user'])) {
+       $action = 'login';
+    }
+        
 //The main switchboard for site navigation
 switch ($action){
     //take the user to the main menu
@@ -35,7 +38,21 @@ switch ($action){
     case 'profile_view':
         include('view/profiles/manage_user_profiles.php');
         break;
+    case 'login':
+        $username = filter_input(INPUT_POST, 'username');
+        $password = filter_input(INPUT_POST, 'password');
+        if (is_valid_user_login($username, $password)) {
+            $_SESSION['is_valid_user'] = true;
+            $_SESSION['username'] = $username;
+            include('view/home_view.php');
+        } else {
+            $login_message = 'You must login to continue';
+            include ('view/login.php');
+        }
+        break;
     case 'logout':
+        $_SESSION = array();
+        session_destroy();
         include('view/logout.php');
         break;
 }
