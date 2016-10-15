@@ -54,7 +54,7 @@ switch ($action){
         $_SESSION = array();
         session_destroy();
         include('view/logout.php');
-        echo 'helo';
+        echo 'hel';
         break;
 }
 ?>
