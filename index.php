@@ -45,6 +45,11 @@ switch ($action){
             $_SESSION['is_valid_user'] = true;
             $_SESSION['username'] = $username;
             include('view/home_view.php');
+            //only check for admin status if the user is valid
+            if (is_valid_admin($username)) {
+                $_SESSION['is_valid_admin'] = true;
+            }
+            include('view/home_view.php');
         } else {
             $login_message = 'You must login to continue';
             include ('view/login.php');

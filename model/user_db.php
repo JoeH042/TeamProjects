@@ -21,3 +21,22 @@ function is_valid_user_login($username, $password){
     $statement->closeCursor();
     return $valid;
 }
+
+//checks to see if the user is an admin
+function is_valid_admin($username){
+    global $db;
+    $query = 'SELECT User_ID
+            FROM login
+            WHERE User_name = :username';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username',$username);
+    $statement-> execute();
+    $matchingValues = ($statement->rowCount());
+    if( $matchingValues > 0){
+        $valid = TRUE;
+    } else {
+        $valid = FALSE;
+    }  
+    $statement->closeCursor();
+    return $valid;
+}

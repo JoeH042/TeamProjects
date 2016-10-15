@@ -1,6 +1,6 @@
 <?php
     //require_once('/util/secure_conn.php');  // require a secure connection
-    //require_once('/util/valid_admin.php');  // require a valid user
+    require_once('/util/valid_admin.php');  // require a valid admin
 
     include 'view/uniform/header.php';
 ?> 

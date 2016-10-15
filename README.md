@@ -1,8 +1,10 @@
 # 4981
-
+Login credentials for application
+#USERNAME: user
+#PASSWORD: password
 
 Getting database to work:
-#Make sure your username and password to enter myPHPAdmin matches the database.php file
+#Make sure your username and password to enter myPHPAdmin matches the model/database.php file
 
 
 Future capabilities
