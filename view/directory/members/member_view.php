@@ -12,7 +12,7 @@
 </head>
 <body>
      <form action="." method="post" id="member_view" class="aligned">
-                <input type="hidden" name="action" value="search">
+                <input type="hidden" name="action" value="searchEmployee">
 
 <p>Employee ID:
 <input type="text" name="emid" size="30" value="" />
