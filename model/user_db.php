@@ -5,7 +5,7 @@ function is_valid_user_login($username, $password){
     global $db;
     $encrypted_password = sha1($password);
     $query = 'SELECT User_ID 
-             FROM login 
+             FROM logins 
              WHERE User_name = :username AND 
                    User_Password = :password';
     $statement = $db->prepare($query);
