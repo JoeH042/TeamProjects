@@ -1,4 +1,7 @@
 # 4981
+Implemented the directory php (member + group), and be able to search employee and group infromation by using employee id and group id.
+
+
 Login credentials for application
 #USERNAME: user
 #PASSWORD: password

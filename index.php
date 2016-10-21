@@ -3,6 +3,7 @@ session_start();
 require_once('model/database.php');
 require_once('model/member_db.php');
 require_once('model/user_db.php');
+require_once('view/print_db.php');
 
 //get the action to be performed
 $action = filter_input(INPUT_POST, 'action');
@@ -21,7 +22,7 @@ switch ($action){
     //take the user to the main menu
     case 'home_view':
         include('view/home_view.php');
-        echo get_member(1);
+       // echo get_member(1);
         break;
     case 'member_view':
         include('view/directory/members/member_view.php');
@@ -71,12 +72,14 @@ switch ($action){
         if (is_valid_user_login($username, $password)) {
             $_SESSION['is_valid_user'] = true;
             $_SESSION['username'] = $username;
-            include('view/home_view.php');
+            //include('view/home_view.php');
             //only check for admin status if the user is valid
             if (is_valid_admin($username)) {
                 $_SESSION['is_valid_admin'] = true;
+                
             }
-            include('view/home_view.php');
+             include('view/home_view.php');
+           
         } else {
             $login_message = 'You must login to continue';
             include ('view/login.php');
@@ -86,6 +89,16 @@ switch ($action){
         $_SESSION = array();
         session_destroy();
         include('view/logout.php');
+        break;
+    case 'searchEmployee':
+        $empid = filter_input(INPUT_POST, 'emid');
+        printemployeeInfo($empid);
+
+        break;
+     case 'searchGroup':
+        $grpid = filter_input(INPUT_POST, 'grpid');
+        printgroupInfo($grpid);
+
         break;
 }
 ?>

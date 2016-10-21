@@ -1,4 +1,4 @@
--- create and select the database
+
 DROP DATABASE IF EXISTS CEG4981;
 CREATE DATABASE CEG4981;
 USE CEG4981;  -- MySQL command
@@ -140,4 +140,5 @@ INSERT INTO   Word_Filters VALUES
 (10, 'why', 'Active');
 
 --
+
 
