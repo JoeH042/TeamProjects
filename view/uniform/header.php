@@ -27,6 +27,16 @@
                 </li>
                 <li><a href="index.php?action=send_messages_view">Send Message</a></li>
                 <li><a href="index.php?action=view_messages_view">View Messages</a></li>
-                <li><a href="index.php?action=profile_view">Profile</a></li> <!--Allows Administrators to Create new Username/Passwords-->
+                <li class = "dropdown">
+                    <a href ="#" class ="dropbtn">Manage Directory</a>
+                     <div class="dropdown-content">
+                        <a href="index.php?action=man_profile_view">User Profiles</a>
+                        <a href="index.php?action=man_department_view">Departments</a>
+                        <a href="index.php?action=man_employee_view">Employees</a>
+                        <a href="index.php?action=man_group_view">Groups</a>
+                        <a href="index.php?action=man_grp_member_view">Group Members</a>
+                        <a href="index.php?action=man_role_view">Roles</a>
+                        <a href="index.php?action=man_word_view">Words</a>
+                    </div>                   
             </ul>
         </header>
