@@ -137,3 +137,110 @@ li.dropdown {
     height: 250px ;
     background-color: cornflowerblue;
 }
+
+/***********************************************************************************
+*Send Messages
+*************************************************************************************/
+
+
+/**
+{
+	margin:0px;
+	padding:0px;
+}*/
+.sendMes
+{
+	color:#000;
+	font-size:16px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+.sendMes a
+{
+	color:#000;
+	text-decoration:none;
+}
+.wrapper
+{
+	margin:20px auto;
+	width:768px;
+}
+.row
+{
+	float:left;
+	width:100%;
+}
+.pull-left
+{
+	float:left;
+}
+.pull-right
+{
+	float:right;
+}
+
+.form-con {
+    border: 1px solid #000;
+    float: left;
+    margin: 20px 0 0;
+    padding: 20px;
+	text-align:center;
+    width: calc(100% - 42px);
+	width: -webkit-calc(100% - 42px);
+}
+
+.col-6
+{
+	float:left;
+	width:48%;
+	margin-right:4%;
+}
+
+.col-6:last-child
+{
+	margin-right:0;
+}
+
+.form .col-6:last-child label {
+    top: 0;
+}
+
+.form-con h1
+{
+	margin:0 0 20px 0;
+}
+
+.form input
+{
+	display:block;
+	float:right;
+	min-width:85%;
+	font-size:14px;
+	padding:5px;
+}
+
+.form input[type="submit"]
+{
+	float:left;
+	cursor:pointer;
+	margin:15px 0 0 0;
+	width: 100%;
+}
+
+.form label
+{
+	float:left;
+	position:relative;
+	top:3px;
+}
+
+.form textarea
+{
+	float:right;
+	width:calc(100% - 10px);
+	width:-webkit-calc(100% - 20px);
+	font-size:14px;
+	padding:5px;
+	margin:10px 0 0 0;
+	resize:none;
+	font-family:Arial, Helvetica, sans-serif;
+}
