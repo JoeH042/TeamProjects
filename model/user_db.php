@@ -113,3 +113,16 @@ function is_unique_username($username){
 
     return $unique;
 }
+
+//updates the last_login time variable in the logins table
+function set_last_login($username){
+    global $db;
+    $date = new DateTime("NOW");
+    $last_login = $date->format('Y-m-d H:i:s');
+    $query = "UPDATE Logins SET Last_login =:last_login FROM Logins WHERE User_name=:username";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username',$username);
+    $statement->bindValue(':last_login', $last_login);
+    $statement->execute();
+    $statement->closeCursor();
+}

@@ -36,13 +36,31 @@ switch ($action){
     case 'send_messages_view':
         include('view/messages/send_messages_view.php');
         break;
-    case 'profile_view':
+    case 'man_profile_view':
         //only returns employees that don't already have login profiles
         $employees = get_employees_without_logins();
         //returns the type of logins currently available
         $privileges = get_employee_privileges();
         $new_user_login_message="";
-        include('view/profiles/manage_user_profiles.php');
+        include('view/manage_directory/user_profiles.php');
+        break;
+    case 'man_department_view':
+        include('view/manage_directory/departments.php');
+        break;
+    case 'man_employee_view':
+        include('view/manage_directory/employees.php');
+        break;
+    case 'man_group_view':
+        include('view/manage_directory/groups.php');
+        break;
+    case 'man_grp_member_view':
+        include('view/manage_directory/group_members.php');
+        break;
+    case 'man_role_view':
+        include('view/manage_directory/roles.php');
+        break;
+    case 'man_word_view':
+        include('view/manage_directory/words.php');
         break;
     case 'new_user':
         $employees = get_employees_without_logins();
@@ -72,6 +90,7 @@ switch ($action){
         if (is_valid_user_login($username, $password)) {
             $_SESSION['is_valid_user'] = true;
             $_SESSION['username'] = $username;
+            set_last_login('username');
             //include('view/home_view.php');
             //only check for admin status if the user is valid
             if (is_valid_admin($username)) {
