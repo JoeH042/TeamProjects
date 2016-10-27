@@ -80,6 +80,7 @@ CREATE TABLE Texts (
   Date_sent datetime DEFAULT NULL,
   Date_recieved datetime DEFAULT NULL,
   PRIMARY KEY (Text_ID)
+  CONSTRAINT FOREIGN KEY (Msg_SID) references Employees (EM_ID)
 );
 
 CREATE TABLE TM_Members_Of_Grps (
