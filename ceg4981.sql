@@ -141,7 +141,7 @@ INSERT INTO   Word_Filters VALUES
 (2, 'the ', 'Active'),
 (3, 'you', 'Active'),
 (4, 'is', 'Active'),
-(5, 'i', 'Active'),
+(5, 'I', 'Active'),
 (6, 'we', 'Inactive'),
 (7, 'are', 'Active'),
 (8, 'can', 'Active'),
