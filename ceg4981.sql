@@ -24,7 +24,7 @@ CREATE TABLE Employees (
   EM_Lastname VARCHAR(30) NOT NULL,
   EM_Email VARCHAR(50) DEFAULT NULL,
   EM_Phone INT(20) UNSIGNED DEFAULT NULL,
-  EM_Statu set('Active','Inactive') DEFAULT 'Active',
+  EM_Status set('Active','Inactive') DEFAULT 'Active',
   EM_Department_ID int(9) UNSIGNED DEFAULT NULL,
   EM_Group_ID int(9) UNSIGNED DEFAULT NULL,
   EM_Date_Start datetime DEFAULT CURRENT_TIMESTAMP,
@@ -73,7 +73,7 @@ CREATE TABLE Logins (
 CREATE TABLE Texts (
   Text_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   Msg_SID int(9) UNSIGNED NOT NULL,
-  Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
+  Direction set('OutgingAPI','Outgoing','Incoming','Reply') DEFAULT NULL,
   Sender_Num int(11) UNSIGNED NOT NULL,
   Recieve_Num int(11) UNSIGNED NOT NULL,
   Text_Content text NOT NULL,
@@ -127,6 +127,13 @@ INSERT INTO Logins VALUES
 -- User 1 password is pass
 -- 2 password is haha
 -- 3 password is password
+
+INSERT INTO texts VALUES
+(9, 'w079yxw', 'Reply', 9378441234, 9377751000, 'House fire on 3rd street in Dayton by the gas station', 'Read', 0.10, 'Unsent', '2016-10-12 08:23:46', '2016-10-12 08:33:13'),
+(8, 'w123fes', 'Outgoing', 5134257894, 9378441234, 'Active shooter at the shooting range in Vandalia', 'Unread', 0.02, 'Sent', '2016-10-12 08:50:40', '2016-10-12 09:02:01'), 
+(6, 'w011yxw', 'Reply', 9378441201, 9377751000, 'House on fire on 3rd street in Dayton', 'Read', 0.10, 'sent', '2016-10-12 7:23:46', '2016-10-12 07:33:13'),
+(7, 'w993dyt', 'Incomming', 4344257856, 5134257891, 'Gas spill at Shell gas station in Beavercreek', 'Unread', 0.05, 'Delievered', '2016-10-12 09:23:06', '2016-10-12 09:27:45'),
+(3, 'w111abc', 'Reply', 5138441234, 9377715600, 'Gas fire in Beavercreek', 'Read', 0.10, 'Delievered', '2016-10-12 10:23:26', '2016-10-12 10:03:53'); 
 
 
 INSERT INTO TM_Members_Of_Grps VALUES
