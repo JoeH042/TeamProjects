@@ -102,14 +102,14 @@ CREATE TABLE Word_Filters (
 );
 -- populate the database
 INSERT INTO Employees VALUES
-(1, 'Mary', 'M', 'Brown', 'm.123@wright.edu', 937123456, 'Active', 1, 12, '2016-09-29 23:29:31'),
-(2, 'Anna', '', 'Lee', 'A321@wright.edu', 937654321, 'Inactive', 1, 3, '2016-09-29 23:30:04'),
-(3, 'Wendy', '', 'Meyer', 'W.156@wright.edu', 4294967295, 'Active', 1, 2, '2016-09-29 23:30:46'),
-(5, 'Yipeng', '', 'Wang', 'wang.161@wright.edu', 93723123, 'Active', 1, 2, '2016-10-12 08:23:46');
+(1, 'Mary', 'M', 'Brown', 'm.123@wright.edu', 9371234567, 'Active', 1, 12, '2016-09-29 23:29:31'),
+(2, 'Anna', 'A', 'Lee', 'A321@wright.edu', 9376543210, 'Inactive', 1, 3, '2016-09-29 23:30:04'),
+(3, 'Wendy', 'T', 'Meyer', 'W.156@wright.edu', 5134967295, 'Active', 1, 2, '2016-09-29 23:30:46'),
+(5, 'Yipeng', '', 'Wang', 'wang.161@wright.edu', 9372312355, 'Active', 1, 2, '2016-10-12 08:23:46');
 INSERT INTO Departments VALUES
 (1, 'CEG', 'Computer Engineering', 3),
 (2, 'CS', 'COMPUTER SCIENCE', 2),
-(3, 'Mth', 'Mathmatics', 1);
+(3, 'MTH', 'Mathmatics', 1);
 INSERT INTO Groups VALUES
 (1, 'Fire', 'first responder of fire scene','active'),
 (2, 'Chemecial', 'First responder of chemical scene','active');
@@ -119,9 +119,9 @@ INSERT INTO Roles VALUES
 
 
 INSERT INTO Logins VALUES
-(1, 'w079yxw', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'admin', 5, '2016-10-12 08:23:46'),
-(2, 'w123', '637d1f5c6e6d1be22ed907eb3d223d858ca396d8', 'admin', 3, '2016-10-12 08:23:46'), 
-(3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 08:23:46'); 
+(1, 'w079yxw', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'admin', 5, '2016-10-12 09:23:46'),
+(2, 'w123why', '637d1f5c6e6d1be22ed907eb3d223d858ca396d8', 'admin', 3, '2016-10-12 11:23:46'), 
+(3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 10:23:46'); 
 
 
 -- User 1 password is pass
