@@ -7,12 +7,12 @@
 <?php include 'view/uniform/header.php'; ?>
 <section class="individual_statistics"> 
     <div class="left_side">
-        <h2>You are logged in as . . .</h2>
-        <h4>Role: . . .</h4>
-        <h4>Team Memberships: . . .</h4>
-        <h4>Last Login:. . .</h4>
-        <h4>Unread Received Messages:. . .</h4>
-        <h4>Pending Sent Messages:. . .</h4>
+        <h2>You are logged in as <?php echo $userFirstName." ".$userLastName; ?></h2>
+        <h4>Role: <?php  foreach ($userRoles as $userRole) {echo $userRole . " ";} ?></h4>
+        <h4>Team Memberships: <?php foreach ($userGroups as $userGroup) { echo $userGroup . " ";} ?></h4>
+        <h4>Last Login:<?php echo $userLastLogin; ?></h4>
+        <h4>Unread Received Messages:<?php echo $userReceivedMessages." "; ?></h4>
+        <h4>Pending Sent Messages:<?php echo $userPendingMessages; ?></h4>
     </div>
     <div class="right-side">
         <h2>My Activity</h2>

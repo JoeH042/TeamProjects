@@ -4,6 +4,7 @@ require_once('model/database.php');
 require_once('model/member_db.php');
 require_once('model/user_db.php');
 require_once('view/print_db.php');
+require_once('model/homepage_db.php');
 
 //get the action to be performed
 $action = filter_input(INPUT_POST, 'action');
@@ -19,11 +20,6 @@ if (!isset($_SESSION['is_valid_user'])) {
         
 //The main switchboard for site navigation
 switch ($action){
-    //take the user to the main menu
-    case 'home_view':
-        include('view/home_view.php');
-       // echo get_member(1);
-        break;
     case 'member_view':
         include('view/directory/members/member_view.php');
         break;
@@ -89,20 +85,36 @@ switch ($action){
         $password = filter_input(INPUT_POST, 'password');
         if (is_valid_user_login($username, $password)) {
             $_SESSION['is_valid_user'] = true;
-            $_SESSION['username'] = $username;
+            $_SESSION['username'] = $userName;
             set_last_login('username');
-            //include('view/home_view.php');
             //only check for admin status if the user is valid
-            if (is_valid_admin($username)) {
+            if (!is_valid_admin($username)) {
                 $_SESSION['is_valid_admin'] = true;
-                
             }
-             include('view/home_view.php');
-           
+            $userFirstName = get_user_last_name($userName);
+            $userLastName = get_user_first_name($userName);
+            $userRoles = get_user_roles($userName);
+            $userGroups = get_user_groups($userName);
+            $userLastLogin = get_last_login_time($userName);
+            $userReceivedMessages = get_received_messages($userName);
+            $userPendingMessages = get_pending_messages($userName);
+            include('view/home_view.php');
         } else {
             $login_message = 'You must login to continue';
             include ('view/login.php');
-        }
+        }    
+        break;
+    case 'home_view':
+        $userName=$_SESSION['username'];
+        $userFirstName = get_user_last_name($userName);
+        $userLastName = get_user_first_name($userName);
+        $userRoles = get_user_roles($userName);
+        $userGroups = get_user_groups($userName);
+        $userLastLogin = get_last_login_time($userName);
+        $userReceivedMessages = get_received_messages($userName);
+        $userPendingMessages = get_pending_messages($userName);
+        include('view/home_view.php');
+       // echo get_member(1);
         break;
     case 'logout':
         $_SESSION = array();

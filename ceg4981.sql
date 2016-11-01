@@ -4,8 +4,6 @@ CREATE DATABASE CEG4981;
 USE CEG4981;  -- MySQL command
 
 
-
-
 -- create the tables
 
 CREATE TABLE Groups (
