@@ -4,30 +4,32 @@
 
 function get_user_last_name ($userName) {
     global $db;
-    $query = 'SELECT EM_ID FROM Logins
-              WHERE User_name = :user_name';
+    $query = 'SELECT Employees.EM_Lastname 
+              FROM Employees JOIN Logins 
+                ON Logins.EM_ID = Employees.EM_ID 
+              WHERE Logins.User_name =:user_name';
     $statement = $db->prepare($query);
     $statement->bindValue(':user_name', $userName);
     $statement->execute();
- //   $nameArray= $statement->fetch();
+    $nameArray= $statement->fetch();
     $statement->closeCursor();
- //   $lastName = $nameArray['lastName'];
-    //return $lastName;
-    return 'FakeLastName';
+    $lastName = $nameArray['EM_Lastname'];
+    return $lastName;
 }
 
 function get_user_first_name ($userName) {
     global $db;
-    $query = 'SELECT EM_ID FROM Logins
-              WHERE User_name = :user_name';
+    $query = 'SELECT Employees.EM_Firstname 
+              FROM Employees JOIN Logins 
+                ON Logins.EM_ID = Employees.EM_ID 
+              WHERE Logins.User_name =:user_name';
     $statement = $db->prepare($query);
     $statement->bindValue(':user_name', $userName);
     $statement->execute();
- //   $nameArray= $statement->fetch();
+    $firstNameArray= $statement->fetch();
     $statement->closeCursor();
-//    $firstName = $nameArray['firstName'];
-    //return $firstName;
-    return 'FakeFirstName';
+    $first_name = $firstNameArray['EM_Firstname'];
+    return $first_name;
 }
 
 function get_user_roles ($userName) {
@@ -67,7 +69,6 @@ function get_last_login_time ($userName) {
     $statement->closeCursor();
     $login_time = $timeArray['LastLogin'];
     return $login_time;
-    //return 'fake time';
 }
 
 function get_received_messages($userName) {

@@ -85,19 +85,19 @@ switch ($action){
         $password = filter_input(INPUT_POST, 'password');
         if (is_valid_user_login($username, $password)) {
             $_SESSION['is_valid_user'] = true;
-            $_SESSION['username'] = $userName;
+            $_SESSION['username']=$username;
             set_last_login('username');
             //only check for admin status if the user is valid
             if (!is_valid_admin($username)) {
                 $_SESSION['is_valid_admin'] = true;
             }
-            $userFirstName = get_user_last_name($userName);
-            $userLastName = get_user_first_name($userName);
-            $userRoles = get_user_roles($userName);
-            $userGroups = get_user_groups($userName);
-            $userLastLogin = get_last_login_time($userName);
-            $userReceivedMessages = get_received_messages($userName);
-            $userPendingMessages = get_pending_messages($userName);
+            $userFirstName = get_user_first_name($username);
+            $userLastName = get_user_last_name($username);
+            $userRoles = get_user_roles($username);
+            $userGroups = get_user_groups($username);
+            $userLastLogin = get_last_login_time($username);
+            $userReceivedMessages = get_received_messages($username);
+            $userPendingMessages = get_pending_messages($username);
             include('view/home_view.php');
         } else {
             $login_message = 'You must login to continue';
@@ -106,8 +106,8 @@ switch ($action){
         break;
     case 'home_view':
         $userName=$_SESSION['username'];
-        $userFirstName = get_user_last_name($userName);
-        $userLastName = get_user_first_name($userName);
+        $userFirstName = get_user_first_name($userName);
+        $userLastName = get_user_last_name($userName);
         $userRoles = get_user_roles($userName);
         $userGroups = get_user_groups($userName);
         $userLastLogin = get_last_login_time($userName);
