@@ -9,7 +9,8 @@
      <aside>
         <h2>Employee Directory</h2>
         
-        <form action="index.php" method="post" id="employees_by_departments">
+        <form action="." method="post">
+            <input type="hidden" name="action" value="filter_emp_by_dept"> 
             <!--a drop down for departments-->
             <label>Locate Employees by Department:</label>
             <select name="dept_id">
@@ -61,9 +62,13 @@
                 <!-- Add an option to delete row -->
         </table>
         
+        
         <p class="last_paragraph">
-            <a href="index.php?action=show_add_member">Add New Employee</a>
+            <a href="index.php?action=add_employee">Add New Employee</a>
         </p>
+            <br>
+        <p><?php echo $man_emp_message; ?></p>
+        
         
     </section>
     

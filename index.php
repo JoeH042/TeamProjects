@@ -51,13 +51,7 @@ switch ($action){
     case 'man_employee_view':
         $employees = get_employees();
         $departments = get_departments();
-        $fname = "";
-        $mname = "";
-        $lname = "";
-        $email = "";
-        $phone = "";
-        $status = "";
-        $dept_id = "";
+        $man_emp_message = "";
         include('view/manage_directory/employees.php');
         break;
     case 'edit_employee':
@@ -71,14 +65,33 @@ switch ($action){
         $phone = $employee['EM_Phone'];
         $status =$employee['EM_Status'];
         $dept_id =$employee['EM_Department_ID'];
+        
+        $check_status = 'F';
+        if ($status=='Active'){
+            $status_check = 'Y';
+        }
          
-        $this_action = "Edit Existing Employee";
+        $this_action_messgage = "Edit Existing Employee";
         include('view/manage_directory/employee_add.php');
+        break;
+    case 'filter_emp_by_dept':
+        $dept_id = filter_input(INPUT_POST, 'dept_id');
+        $employees = get_employees_by_dept_id($dept_id);
+        $departments = get_departments();
+        $man_emp_message = "";
+        include('view/manage_directory/employees.php');
         break;
     case 'add_employee':
         $employee_id = get_next_EM_ID();
         $departments = get_departments();
-        $this_action = "Add New Employee";
+                $fname = "";
+        $mname = "";
+        $lname = "";
+        $email = "";
+        $phone = "";
+        $status_check = "N";
+        $dept_id = "";
+        $this_action_message = "Add New Employee";
         include('view/manage_directory/employee_add.php');
         break;
     case 'add_or_edit_employee':
@@ -88,14 +101,23 @@ switch ($action){
         $lname = filter_input(INPUT_POST, 'lname');
         $email = filter_input(INPUT_POST, 'email');
         $phone = filter_input(INPUT_POST, 'phone');
-        $status = filter_input(INPUT_POST, 'status');
+        $check_status = filter_input(INPUT_POST, 'status');
         $dept_id = filter_input(INPUT_POST, 'dept_id');
-        
-        if (existingEmployee($em_id)){
+        $status = 'Inactive';
+        if ($check_status=='Y'){
+            $status = 'Active';
+        }     
+        if (is_existing_employee($employee_id)){
             edit_employee($employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id);
+            $man_emp_message = "Modified employee ID ".$employee_id;
+            
         } else{
             add_employee($employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id);
+            $man_emp_message = "Added new employee ID ".$employee_id;
         }
+        $employees = get_employees();
+        $departments = get_departments();
+        include('view/manage_directory/employees.php');
         break;
     case 'man_group_view':
         include('view/manage_directory/groups.php');

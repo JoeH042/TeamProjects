@@ -6,7 +6,7 @@
 ?> 
 
 <main>
-    <h1>Add Member</h1>
+    <h1><?php echo $this_action_message; ?></h1>
     <form action="index.php" method="post" id="add_or_edit_employee">
         <input type="hidden" name="action" value="add_or_edit_employee">
         
@@ -33,7 +33,7 @@
         <br><br>        
         
         <label>Status:</label>
-          <input type="checkbox" name="status" value="Y"><br>
+          <input type="checkbox" name="status" checked="<?php echo $status_check; ?>"<br>
         <br>
         
         <label>Department:</label>
@@ -47,7 +47,7 @@
         <br><br>
                        
         <label>&nbsp;</label>
-        <input type="submit" value="<?php echo $this_action; ?>" />
+        <input type="submit" value="Submit" />
         <br>        
     </form>
     
