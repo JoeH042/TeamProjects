@@ -159,6 +159,5 @@ switch ($action) {
 }
 
 
-include 'view/uniform/footer.php';
 ?>
 
