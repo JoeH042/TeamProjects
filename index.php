@@ -5,6 +5,7 @@ require_once('model/database.php');
 require_once('model/employee_db.php');
 require_once('model/user_db.php');
 require_once('view/print_db.php');
+require_once('model/department_db.php');
 //get the action to be performed
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
@@ -48,7 +49,53 @@ switch ($action){
         include('view/manage_directory/departments.php');
         break;
     case 'man_employee_view':
+        $employees = get_employees();
+        $departments = get_departments();
+        $fname = "";
+        $mname = "";
+        $lname = "";
+        $email = "";
+        $phone = "";
+        $status = "";
+        $dept_id = "";
         include('view/manage_directory/employees.php');
+        break;
+    case 'edit_employee':
+        $employee_id = filter_input(INPUT_POST, 'em_id');
+        $departments = get_departments();
+        $employee = get_employee($employee_id);
+        $fname = $employee['EM_Firstname'];
+        $mname = $employee['EM_Middlename'];
+        $lname = $employee['EM_Lastname'];
+        $email = $employee['EM_Email'];
+        $phone = $employee['EM_Phone'];
+        $status =$employee['EM_Status'];
+        $dept_id =$employee['EM_Department_ID'];
+         
+        $this_action = "Edit Existing Employee";
+        include('view/manage_directory/employee_add.php');
+        break;
+    case 'add_employee':
+        $employee_id = get_next_EM_ID();
+        $departments = get_departments();
+        $this_action = "Add New Employee";
+        include('view/manage_directory/employee_add.php');
+        break;
+    case 'add_or_edit_employee':
+        $employee_id = filter_input(INPUT_POST, 'em_id');
+        $fname = filter_input(INPUT_POST, 'fname');
+        $mname = filter_input(INPUT_POST, 'mname');
+        $lname = filter_input(INPUT_POST, 'lname');
+        $email = filter_input(INPUT_POST, 'email');
+        $phone = filter_input(INPUT_POST, 'phone');
+        $status = filter_input(INPUT_POST, 'status');
+        $dept_id = filter_input(INPUT_POST, 'dept_id');
+        
+        if (existingEmployee($em_id)){
+            edit_employee($employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id);
+        } else{
+            add_employee($employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id);
+        }
         break;
     case 'man_group_view':
         include('view/manage_directory/groups.php');
@@ -128,8 +175,6 @@ switch ($action){
         $ar = array($emid, $emfname, $emmname, $emlsname, $ememail, $emphone, $emstatus, $emstdat);
         $count = count($ar);
 
-
-
         if (!empty($emid) || !empty($emfname) || !empty($emmname) || !empty($emlsname) || !empty($ememail) || !empty($emphone) || !empty($emstatus) || !empty($emstdat) || !empty($depid)) {
             while ($count != 1) {
                 if (empty($ar[$count - 1])) {
@@ -148,8 +193,7 @@ switch ($action){
         } else
             printAll(1);
         break;
-
-
+        
     case 'search_grp_dpt':
         
         include('view/directory/groups/group_view.php');
@@ -170,11 +214,9 @@ switch ($action){
                     $ar[$count - 1] = " ";
                      
                     $num++;
-                }
-              
+                } 
                 $count--;
-            }
-               
+            }               
             search_gp_dpt($ar[0],$ar[1],$ar[2],$ar[3],$ar[4],$counts-$num);
         } 
         
@@ -205,7 +247,6 @@ switch ($action){
         break;
     
 }
-
 
 include 'view/uniform/footer.php';
 ?>

@@ -41,19 +41,30 @@ function get_employees() {
     return $employees;       
 }
 
-function add_employee( $name, $role_id, $phone_number, $clearances, $usernameRequired, $skills) {
+        $employee_id = filter_input(INPUT_POST, 'em_id');
+        $fname = filter_input(INPUT_POST, 'fname');
+        $mname = filter_input(INPUT_POST, 'mname');
+        $lname = filter_input(INPUT_POST, 'lname');
+        $email = filter_input(INPUT_POST, 'email');
+        $phone = filter_input(INPUT_POST, 'phone');
+        $status = filter_input(INPUT_POST, 'status');
+        $dept_id = filter_input(INPUT_POST, 'dept_id');
+
+function add_employee( $employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id) {
     global $db;
     $query = 'INSERT INTO individuals
-                (memberName,roleID, memberPhoneNum, clearances, usernameRequired, skills)
+                (EM_ID, EM_Firstname, EM_Middlename, EM_Lastname, EM_Email, EM_Phone, EM_Status, EM_Department_ID)
             VALUES
-                (:name, :role_id, :phone_number, :clearances, :usernameRequired, :skills)';
+                (:em_id, :fname, :mname, :lname, :email, :phone, :status, :dept_id)';
     $statement = $db->prepare($query);
-    $statement->bindValue(':name', $name);
-    $statement->bindValue(':role_id', $role_id);
-    $statement->bindValue(':phone_number', $phone_number);
-    $statement->bindValue(':clearances', $clearances);
-    $statement->bindValue(':usernameRequired', $usernameRequired);
-    $statement->bindValue(':skills', $skills);
+    $statement->bindValue(':em_id', $employee_id);
+    $statement->bindValue(':fname', $fname);
+    $statement->bindValue(':mname', $mname);
+    $statement->bindValue(':lname', $lname);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':phone', $phone);
+    $statement->bindValue(':status', $status);
+    $statement->bindValue(':dept_id', $dept_id);
     $statement->execute();
     $statement->closeCursor();       
 }
@@ -68,19 +79,21 @@ function get_next_EM_ID() {
     return $next_id;
 }
 
-function edit_employee( $name, $role_id, $phone_number, $clearances, $usernameRequired, $skills) {
+function edit_employee( $employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id) {
     global $db;
     $query = 'INSERT INTO individuals
-                (memberName,roleID, memberPhoneNum, clearances, usernameRequired, skills)
+                (EM_ID, EM_Firstname, EM_Middlename, EM_Lastname, EM_Email, EM_Phone, EM_Status, EM_Department_ID)
             VALUES
-                (:name, :role_id, :phone_number, :clearances, :usernameRequired, :skills)';
+                (:em_id, :fname, :mname, :lname, :email, :phone, :status, :dept_id)';
     $statement = $db->prepare($query);
-    $statement->bindValue(':name', $name);
-    $statement->bindValue(':role_id', $role_id);
-    $statement->bindValue(':phone_number', $phone_number);
-    $statement->bindValue(':clearances', $clearances);
-    $statement->bindValue(':usernameRequired', $usernameRequired);
-    $statement->bindValue(':skills', $skills);
+    $statement->bindValue(':em_id', $employee_id);
+    $statement->bindValue(':fname', $fname);
+    $statement->bindValue(':mname', $mname);
+    $statement->bindValue(':lname', $lname);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':phone', $phone);
+    $statement->bindValue(':status', $status);
+    $statement->bindValue(':dept_id', $dept_id);
     $statement->execute();
-    $statement->closeCursor();       
+    $statement->closeCursor();          
 }

@@ -8,24 +8,10 @@
 <main>
      <aside>
         <h2>Employee Directory</h2>
-        <form>
-            <!--a drop down for roles-->
-            <label>Locate by role:</label>
-            <select name="role_id">
-                <?php foreach ($roles as $role) : ?>
-                    <option value="<?php echo $role['Role_ID']; ?>">
-                        <?php echo $employee['Role_ID'] ." ". $employee['Role_Name']; ?>
-                    </option>
-               <?php endforeach; ?>
-            </select>
-            <br>
-            <label>&nbsp;</label>
-            <input type="submit" value="Submit">
-        </form>
         
-        <form>
+        <form action="index.php" method="post" id="employees_by_departments">
             <!--a drop down for departments-->
-            <label>Locate by department:</label>
+            <label>Locate Employees by Department:</label>
             <select name="dept_id">
                 <?php foreach ($departments as $department) : ?>
                     <option value="<?php echo $department['Dept_ID']; ?>">
@@ -37,21 +23,7 @@
             <label>&nbsp;</label>
             <input type="submit" value="Submit">
         </form>    
-        
-        <form>
-            <!--a drop down for employees-->
-            <label>Locate by employee name:</label>
-            <select name="em_id">
-                <?php foreach ($employees as $employee) : ?>
-                    <option value="<?php echo $employee['EM_ID']; ?>">
-                        <?php echo $employee['EM_Firstname'] ." ". $employee['EM_Lastname']; ?>
-                    </option>
-               <?php endforeach; ?>
-            </select>
-            <br>
-            <label>&nbsp;</label>
-            <input type="submit" value="Submit">
-        </form>   
+      
     </aside>
     
     <section>
