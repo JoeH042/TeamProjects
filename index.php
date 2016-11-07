@@ -1,29 +1,29 @@
-<?php
 
+<?php
 session_start();
 require_once('model/database.php');
-require_once('model/member_db.php');
+require_once('model/employee_db.php');
 require_once('model/user_db.php');
 require_once('view/print_db.php');
-
+require_once('model/department_db.php');
 //get the action to be performed
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
-    if ($action == NULL) {
+    if ($action == NULL ) {
         $action = 'home_view';
-    }
-}
+    } 
+} 
 if (!isset($_SESSION['is_valid_user'])) {
-    $action = 'login';
-}
-
+       $action = 'login';
+    }
+        
 //The main switchboard for site navigation
-switch ($action) {
+switch ($action){
     //take the user to the main menu
     case 'home_view':
         include('view/home_view.php');
-        // echo get_member(1);
+       // echo get_member(1);
         break;
     case 'member_view':
         include('view/directory/members/member_view.php');
@@ -49,6 +49,74 @@ switch ($action) {
         include('view/manage_directory/departments.php');
         break;
     case 'man_employee_view':
+        $employees = get_employees();
+        $departments = get_departments();
+        $man_emp_message = "";
+        include('view/manage_directory/employees.php');
+        break;
+    case 'edit_employee':
+        $employee_id = filter_input(INPUT_POST, 'em_id');
+        $departments = get_departments();
+        $employee = get_employee($employee_id);
+        $fname = $employee['EM_Firstname'];
+        $mname = $employee['EM_Middlename'];
+        $lname = $employee['EM_Lastname'];
+        $email = $employee['EM_Email'];
+        $phone = $employee['EM_Phone'];
+        $status =$employee['EM_Status'];
+        $dept_id =$employee['EM_Department_ID'];
+        
+        $check_status = 'F';
+        if ($status=='Active'){
+            $status_check = 'Y';
+        }
+         
+        $this_action_messgage = "Edit Existing Employee";
+        include('view/manage_directory/employee_add.php');
+        break;
+    case 'filter_emp_by_dept':
+        $dept_id = filter_input(INPUT_POST, 'dept_id');
+        $employees = get_employees_by_dept_id($dept_id);
+        $departments = get_departments();
+        $man_emp_message = "";
+        include('view/manage_directory/employees.php');
+        break;
+    case 'add_employee':
+        $employee_id = get_next_EM_ID();
+        $departments = get_departments();
+                $fname = "";
+        $mname = "";
+        $lname = "";
+        $email = "";
+        $phone = "";
+        $status_check = "N";
+        $dept_id = "";
+        $this_action_message = "Add New Employee";
+        include('view/manage_directory/employee_add.php');
+        break;
+    case 'add_or_edit_employee':
+        $employee_id = filter_input(INPUT_POST, 'em_id');
+        $fname = filter_input(INPUT_POST, 'fname');
+        $mname = filter_input(INPUT_POST, 'mname');
+        $lname = filter_input(INPUT_POST, 'lname');
+        $email = filter_input(INPUT_POST, 'email');
+        $phone = filter_input(INPUT_POST, 'phone');
+        $check_status = filter_input(INPUT_POST, 'status');
+        $dept_id = filter_input(INPUT_POST, 'dept_id');
+        $status = 'Inactive';
+        if ($check_status=='Y'){
+            $status = 'Active';
+        }     
+        if (is_existing_employee($employee_id)){
+            edit_employee($employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id);
+            $man_emp_message = "Modified employee ID ".$employee_id;
+            
+        } else{
+            add_employee($employee_id, $fname, $mname, $lname, $email, $phone, $status, $dept_id);
+            $man_emp_message = "Added new employee ID ".$employee_id;
+        }
+        $employees = get_employees();
+        $departments = get_departments();
         include('view/manage_directory/employees.php');
         break;
     case 'man_group_view':
@@ -84,19 +152,22 @@ switch ($action) {
         }
         $new_user_login_message= 'New user successfully added.';
         include('view/profiles/manage_user_profiles.php');
-        break; 
+        break;       
     case 'login':
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
         if (is_valid_user_login($username, $password)) {
             $_SESSION['is_valid_user'] = true;
             $_SESSION['username'] = $username;
+            set_last_login('username');
             //include('view/home_view.php');
             //only check for admin status if the user is valid
             if (is_valid_admin($username)) {
                 $_SESSION['is_valid_admin'] = true;
+                
             }
-            include('view/home_view.php');
+             include('view/home_view.php');
+           
         } else {
             $login_message = 'You must login to continue';
             include ('view/login.php');
@@ -126,8 +197,6 @@ switch ($action) {
         $ar = array($emid, $emfname, $emmname, $emlsname, $ememail, $emphone, $emstatus, $emstdat);
         $count = count($ar);
 
-
-
         if (!empty($emid) || !empty($emfname) || !empty($emmname) || !empty($emlsname) || !empty($ememail) || !empty($emphone) || !empty($emstatus) || !empty($emstdat) || !empty($depid)) {
             while ($count != 1) {
                 if (empty($ar[$count - 1])) {
@@ -146,8 +215,7 @@ switch ($action) {
         } else
             printAll(1);
         break;
-
-
+        
     case 'search_grp_dpt':
         
         include('view/directory/groups/group_view.php');
@@ -168,11 +236,9 @@ switch ($action) {
                     $ar[$count - 1] = " ";
                      
                     $num++;
-                }
-              
+                } 
                 $count--;
-            }
-               
+            }               
             search_gp_dpt($ar[0],$ar[1],$ar[2],$ar[3],$ar[4],$counts-$num);
         } 
         
@@ -198,11 +264,11 @@ switch ($action) {
             }
             searchw($arw[0], $arw[1]);
         }
- else
+        else
             printAll (3);
         break;
+    
 }
-
 
 ?>
 
