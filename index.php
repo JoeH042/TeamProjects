@@ -37,9 +37,54 @@ switch ($action) {
     case 'send_messages_view':
         include('view/messages/send_messages_view.php');
         break;
-    case 'profile_view':
-        include('view/profiles/manage_user_profiles.php');
+    case 'man_profile_view':
+        //only returns employees that don't already have login profiles
+        $employees = get_employees_without_logins();
+        //returns the type of logins currently available
+        $privileges = get_employee_privileges();
+        $new_user_login_message="";
+        include('view/manage_directory/user_profiles.php');
         break;
+    case 'man_department_view':
+        include('view/manage_directory/departments.php');
+        break;
+    case 'man_employee_view':
+        include('view/manage_directory/employees.php');
+        break;
+    case 'man_group_view':
+        include('view/manage_directory/groups.php');
+        break;
+    case 'man_grp_member_view':
+        include('view/manage_directory/group_members.php');
+        break;
+    case 'man_role_view':
+        include('view/manage_directory/roles.php');
+        break;
+    case 'man_word_view':
+        include('view/manage_directory/words.php');
+        break;
+    case 'new_user':
+        $employees = get_employees_without_logins();
+        $privileges = get_employee_privileges();
+        $username = filter_input(INPUT_POST, 'username');
+        $password1 = filter_input(INPUT_POST, 'password1');
+        $password2 = filter_input(INPUT_POST, 'password2');
+        if ($password1 != $password2){
+            $new_user_login_message= "Passwords do not match, try again.";
+            break;
+        }
+        $privilege = filter_input(INPUT_POST, 'user_privilege');
+        $emp_id = filter_input(INPUT_POST, 'em_id');
+        if(is_unique_username($username)){
+            add_user($username, $password, $privilege, $emp_id);
+        } else {
+            $new_user_login_message="Username is taken. Please try another login name.";
+            include('view/profiles/manage_user_profiles.php');
+            break;
+        }
+        $new_user_login_message= 'New user successfully added.';
+        include('view/profiles/manage_user_profiles.php');
+        break; 
     case 'login':
         $username = filter_input(INPUT_POST, 'username');
         $password = filter_input(INPUT_POST, 'password');
