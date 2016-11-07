@@ -1,4 +1,5 @@
 
+
 DROP DATABASE IF EXISTS CEG4981;
 CREATE DATABASE CEG4981;
 USE CEG4981;  -- MySQL command
@@ -15,10 +16,8 @@ CREATE TABLE Employees (
   EM_Email VARCHAR(50) DEFAULT NULL,
   EM_Phone INT(20) UNSIGNED DEFAULT NULL,
   EM_Status set('Active','Inactive') DEFAULT 'Active',
-  EM_Department_ID int(9) UNSIGNED DEFAULT NULL,
-  EM_Date_Start datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (EM_ID),
-  CONSTRAINT FOREIGN KEY (EM_Department_ID) references Departments (Dept_ID)
+  EM_Department_ID int(9) UNSIGNED NOT NULL,
+  PRIMARY KEY (EM_ID)
   );
 CREATE TABLE Groups (
   Group_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -100,16 +99,14 @@ CREATE TABLE Word_Filters (
 );
 -- populate the database
 INSERT INTO Employees VALUES
-(1, 'Mary', 'M', 'Brown', 'm.123@wright.edu', 937123456, 'Active', 1, '2016-09-29 23:29:31'),
-(2, 'Anna', '', 'Lee', 'A321@wright.edu', 937654321, 'Inactive', 1, '2016-09-29 23:30:04'),
-(3, 'Wendy', '', 'Meyer', 'W.156@wright.edu', 4294967295, 'Active', 1,  '2016-09-29 23:30:46'),
-(4, 'Nina', '', 'Perterson', 'W.12@wright.edu', 44967295, 'InActive', 2,  '2016-09-29 23:30:46'),
-(5, 'Yipeng', '', 'Wang', 'wang.161@wright.edu', 93723123, 'Active',  2, '2016-10-12 08:23:46'),
-
-(6, 'John', '', 'Johnson', 'W.@right.edu', 429496, 'Active', 4,  '2016-09-29 23:30:46'),
-(7, 'XP', '', 'Windows', 'W.12@gmail.edu', 447295, 'InActive', 3,  '2016-09-29 23:30:46'),
-(8, 'Tina', '', 'June', 'wa@wright.edu', 93723, 'Active',  2, '2016-10-12 08:23:46')
-;
+(1, 'Mary', 'M', 'Brown', 'm123@wright.edu', 1937123456, 'Active', 1),
+(2, 'Anna', 'Gar', 'Lee', 'A321@wright.edu', 1937654321, 'Inactive', 1),
+(3, 'Wendy', 'Rex', 'Meyer', 'W156@wright.edu', 4294967295, 'Active', 1),
+(4, 'Nina', 'Matty', 'Perterson', 'W.12@wright.edu', 1144967295, 'Inactive', 2),
+(5, 'Yipeng', 'Craig', 'Wang', 'wang.161@wright.edu', 9372312311, 'Active',  2),
+(6, 'John', 'Billy', 'Johnson', 'W.@right.edu', 4294961111, 'Active', 4),
+(7, 'XP', 'Carh', 'Windows', 'W12@gmail.edu', 4472951111, 'Inactive', 3),
+(8, 'Tina', 'Shamwow', 'June', 'wa@wright.edu', 9372311111, 'Active',  2);
 INSERT INTO Departments VALUES
 (1, 'CEG', 'Computer Engineering', 3,'active'),
 (2, 'CS', 'COMPUTER SCIENCE', 2,'inactive'),
@@ -165,6 +162,5 @@ INSERT INTO   Word_Filters VALUES
 (10, 'why', 'Active');
 
 --
-
 
     
