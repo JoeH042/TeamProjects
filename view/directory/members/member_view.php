@@ -46,3 +46,4 @@
             </form>
 </main>
 
+<?php include 'view/uniform/footer.php';?>
