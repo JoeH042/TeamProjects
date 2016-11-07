@@ -7,10 +7,6 @@ USE CEG4981;  -- MySQL command
 
 
 -- create the tables
-
-
-
-
 CREATE TABLE Employees (
   EM_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   EM_Firstname VARCHAR(30) NOT NULL,
@@ -21,7 +17,8 @@ CREATE TABLE Employees (
   EM_Status set('Active','Inactive') DEFAULT 'Active',
   EM_Department_ID int(9) UNSIGNED DEFAULT NULL,
   EM_Date_Start datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (EM_ID)
+  PRIMARY KEY (EM_ID),
+  CONSTRAINT FOREIGN KEY (EM_Department_ID) references Departments (Dept_ID)
   );
 CREATE TABLE Groups (
   Group_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
