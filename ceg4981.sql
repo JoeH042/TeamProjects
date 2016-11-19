@@ -52,7 +52,7 @@ CREATE TABLE Roles (
   Role_Status set('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (Role_ID),
   
-  CONSTRAINT FOREIGN KEY (Dept_ID) references Groups (Group_ID),
+  CONSTRAINT FOREIGN KEY (Dept_ID) references Departments (Dept_ID),
   CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID)
    );
 
@@ -84,11 +84,14 @@ CREATE TABLE Texts (
 );
 
 CREATE TABLE TM_Members_Of_Grps (
+GrpMbr_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   EM_ID int(9) UNSIGNED NOT NULL,
   Group_ID int(9) UNSIGNED NOT NULL,
   Group_Role  varchar(30) DEFAULT NULL,
   Group_Status set('Active','Inactive') DEFAULT NULL,
-  PRIMARY KEY (EM_ID,Group_ID)
+  PRIMARY KEY (GrpMbr_ID),
+CONSTRAINT FOREIGN KEY (Group_ID) references Groups (Group_ID),
+CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID)
 ) ;
 
 CREATE TABLE Word_Filters (
@@ -141,14 +144,15 @@ INSERT INTO Logins VALUES
 -- 2 password is haha
 -- 3 password is password
 INSERT INTO TM_Members_Of_Grps VALUES
-(1, 1, 'Leader','active'),
-(2, 1, '','active'),
-(3, 3,'Leader','inactive'),
-(4, 4,' ','active'),
-(5, 4, 'Leader','inactive'),
-(6, 2,'', 'active'),
-(7, 5, '','inactive'),
-(8, 6,'Leader', 'inactive');
+(1,1, 1, 'Leader','active'),
+(2,2, 1, '','active'),
+(3,3, 3,'Leader','inactive'),
+(4,4, 4,' ','active'),
+(5,5, 4, 'Leader','inactive'),
+(6,6, 2,'', 'active'),
+(7,7, 5, '','inactive'),
+(8,8, 6,'Leader', 'inactive'),
+(9,6, 3,'', 'active');
 INSERT INTO   Word_Filters VALUES
 (1, 'a', 'Active'),
 (2, 'the ', 'Active'),

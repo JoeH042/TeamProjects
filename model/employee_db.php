@@ -64,7 +64,10 @@ function add_employee( $employee_id, $fname, $mname, $lname, $email, $phone, $st
     $statement->bindValue(':status', $status);
     $statement->bindValue(':dept_id', $dept_id);
     $statement->execute();
-    $statement->closeCursor();       
+    $statement->closeCursor();  
+     $roleid=  get_next_Role_ID();
+     add_role($roleid, " ", " ", $dept_id, $employee_id, 'Active');
+        
 }
 
 function get_next_EM_ID() {
@@ -93,7 +96,15 @@ function edit_employee( $employee_id, $fname, $mname, $lname, $email, $phone, $s
     $statement->bindValue(':status', $status);
     $statement->bindValue(':dept_id', $dept_id);
     $statement->execute();
-    $statement->closeCursor();          
+    $statement->closeCursor();   
+    $row= search_gp_dpt($employee_id, " ", " ", $dept_id, " ", -1);
+    if($row==NULL){
+        $roleid=  get_next_Role_ID();
+        add_role($roleid, " ", " ", $dept_id, $employee_id, 'Active');
+        
+    }
+    
+    
 }
 
 function is_existing_employee($em_id){
