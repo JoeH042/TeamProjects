@@ -6,6 +6,8 @@ require_once('model/employee_db.php');
 require_once('model/user_db.php');
 require_once('view/print_db.php');
 require_once('model/department_db.php');
+require_once('model/homepage_db.php');
+
 //get the action to be performed
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
@@ -22,6 +24,14 @@ if (!isset($_SESSION['is_valid_user'])) {
 switch ($action){
     //take the user to the main menu
     case 'home_view':
+        $userName = $_SESSION['username'];
+        $userFirstName = get_user_first_name($userName);
+        $userLastName = get_user_last_name($userName);
+        $userGroups = get_user_groups($userName);
+        $userRoles = get_user_roles($userName);
+        $userLastLogin = get_last_login_time($userName);
+        $userReceivedMessages = get_received_messages($userName);
+        $userPendingMessages = get_pending_messages($userName);
         include('view/home_view.php');
        // echo get_member(1);
         break;
@@ -166,6 +176,14 @@ switch ($action){
                 $_SESSION['is_valid_admin'] = true;
                 
             }
+            $userName = $_SESSION['username'];
+            $userFirstName = get_user_first_name($userName);
+            $userLastName = get_user_last_name($userName);
+            $userGroups = get_user_groups($userName);
+            $userRoles = get_user_roles($userName);
+            $userLastLogin = get_last_login_time($userName);
+            $userReceivedMessages = get_received_messages($userName);
+            $userPendingMessages = get_pending_messages($userName);
              include('view/home_view.php');
            
         } else {
