@@ -2,6 +2,7 @@
     $dsn = 'mysql:host=localhost;dbname=CEG4981';
     $username = 'root';//'rhodes' <--for server;
     $password = 'password';//'cynics4fitful' <--for server;
+    
 
     try {
         $db = new PDO($dsn, $username, $password);

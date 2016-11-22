@@ -6,6 +6,7 @@
 //Date: 10/20/2016
 
 //checks to see if the user is valid when logging in
+ 
 function is_valid_user_login($username, $password){
     global $db;
     $encrypted_password = sha1($password);
@@ -24,9 +25,21 @@ function is_valid_user_login($username, $password){
         $valid = FALSE;
     }  
     $statement->closeCursor();
+     $GLOBALS['user']=$username;
     return $valid;
 }
-
+function getemid($username){
+     global $db;
+    $query = 'SELECT EM_ID
+            FROM logins
+            WHERE User_name = :username';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username',$username);
+    $statement-> execute();
+    $row = $statement->fetch(); 
+    $id = $row['EM_ID'];
+    return $id;
+}
 //checks to see if the username belongs to an admin
 function is_valid_admin($username){
     global $db;
@@ -125,4 +138,7 @@ function set_last_login($username){
     $statement->bindValue(':last_login', $last_login);
     $statement->execute();
     $statement->closeCursor();
+    global $user;
+    $GLOBALS['user']=$username;
+    
 }

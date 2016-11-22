@@ -7,7 +7,7 @@ require_once('model/user_db.php');
 require_once('view/print_db.php');
 require_once('model/department_db.php');
 require_once('model/group_db.php');
-
+require_once('model/message_db.php');
 require_once('model/word_db.php');
 //get the action to be performed
 $action = filter_input(INPUT_POST, 'action');
@@ -19,8 +19,9 @@ if ($action == NULL) {
 } 
 if (!isset($_SESSION['is_valid_user'])) {
        $action = 'login';
+       
     }
-        
+   
 //The main switchboard for site navigation
 switch ($action){
     //take the user to the main menu
@@ -35,11 +36,14 @@ switch ($action){
         include('view/directory/groups/group_view.php');
         break;
     case 'view_messages_view':
+     
         include('view/messages/view_messages_view.php');
         break;
     case 'send_messages_view':
         include('view/messages/send_messages_view.php');
         break;
+    ///there///
+   
     case 'man_profile_view':
         //only returns employees that don't already have login profiles
         $employees = get_employees_without_logins();
@@ -242,7 +246,7 @@ switch ($action){
         if ($status=='Active'){
             $status_check = 'Y';
         }
-        $this_action_message = "Edit Existing Word_filter";
+        $this_action_message = "Edit Existing Group member";
         include('view/manage_directory/group_members_add.php');
         
         break;
@@ -438,7 +442,9 @@ switch ($action){
         break;       
     case 'login':
         $username = filter_input(INPUT_POST, 'username');
+        
         $password = filter_input(INPUT_POST, 'password');
+        
         if (is_valid_user_login($username, $password)) {
             $_SESSION['is_valid_user'] = true;
             $_SESSION['username'] = $username;
@@ -449,20 +455,38 @@ switch ($action){
                 $_SESSION['is_valid_admin'] = true;
                 
             }
+            ///here1///
+            
+            
              include('view/home_view.php');
-           
+    
         } else {
             $login_message = 'You must login to continue';
             include ('view/login.php');
         }
+        
         break;
+         case 'viewmessages':
+             $user=$_SESSION['username'];
+             $userid=  getemid($user);
+        $option = filter_input(INPUT_POST, 'option');
+        if($option=='inbox'){
+             $messages=get_inmessages($userid);
+            $man_msg_message = "";
+        include('view/messages/inbox_messages_view.php');
+        }
+        else if ($option=='outbox'){
+            $messages=get_outmessages($userid);
+            $man_msg_message = "";
+        include('view/messages/outbox_messages_view.php');}
+        break;
+        
     case 'logout':
         $_SESSION = array();
         session_destroy();
         include('view/logout.php');
         break;
     case 'searchEmployee':
-
         include('view/directory/members/member_view.php');
 
         $emid = filter_input(INPUT_POST, 'emid');
@@ -552,8 +576,6 @@ switch ($action){
         else
             printAll (3,1);
         break;
-    
-}
-
+} 
 ?>
 

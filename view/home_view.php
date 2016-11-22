@@ -21,6 +21,7 @@
 </section>
 
 <section class="team_statistics">
+    
     <h1>Fancy Queries</h1>
     <div class="float-box">
         <h4>5 Hour, Trending Keywords</h4>
@@ -32,4 +33,5 @@
         <h4>24 Hour, My Team Activity</h4>
     </div>    
 </section>
-<?php include 'view/uniform/footer.php'; ?>
+<?php include 'view/uniform/footer.php'; 
+?>

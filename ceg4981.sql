@@ -1,5 +1,3 @@
-
-
 DROP DATABASE IF EXISTS CEG4981;
 CREATE DATABASE CEG4981;
 USE CEG4981;  -- MySQL command
@@ -18,6 +16,7 @@ CREATE TABLE Employees (
   EM_Status set('Active','Inactive') DEFAULT 'Active',
   EM_Department_ID int(9) UNSIGNED NOT NULL,
   PRIMARY KEY (EM_ID)
+
   );
 CREATE TABLE Groups (
   Group_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -26,7 +25,7 @@ CREATE TABLE Groups (
   Group_Leader_ID INT(9) UNSIGNED NOT NULL,
   Group_Status set('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (Group_ID),
-  CONSTRAINT FOREIGN KEY (Group_Leader_ID) references Employees (EM_ID)
+  CONSTRAINT FOREIGN KEY (Group_Leader_ID) references Employees (EM_ID) ON UPDATE CASCADE
 );
 CREATE TABLE Departments (
   Dept_ID 	int(9) 	UNSIGNED 	NOT NULL 	AUTO_INCREMENT,
@@ -35,7 +34,7 @@ CREATE TABLE Departments (
   Manager_ID int(9) UNSIGNED DEFAULT NULL,
  Dept_Status set('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (Dept_ID),
-  CONSTRAINT FOREIGN KEY (Manager_ID) references Employees (EM_ID)
+  CONSTRAINT FOREIGN KEY (Manager_ID) references Employees (EM_ID)ON UPDATE CASCADE
 );
 
 -- ALTER TABLE Employees
@@ -52,8 +51,8 @@ CREATE TABLE Roles (
   Role_Status set('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (Role_ID),
   
-  CONSTRAINT FOREIGN KEY (Dept_ID) references Departments (Dept_ID),
-  CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID)
+  CONSTRAINT FOREIGN KEY (Dept_ID) references Departments (Dept_ID) ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID) ON UPDATE CASCADE
    );
 
 CREATE TABLE Logins (
@@ -65,14 +64,14 @@ CREATE TABLE Logins (
   EM_ID int(9) UNSIGNED NOT NULL,
   Last_login datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (User_ID),
-  CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID)
+  CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID) ON UPDATE CASCADE
 );
 CREATE TABLE Texts (
   Text_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   Msg_SID int(9) UNSIGNED NOT NULL,
   Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
-  Sender_Num int(11) UNSIGNED NOT NULL,
-  Recieve_Num int(11) UNSIGNED NOT NULL,
+  Sender_Num INT(20) UNSIGNED DEFAULT NULL,
+  Recieve_Num INT(20) UNSIGNED DEFAULT NULL,
   Text_Content text NOT NULL,
   View_Status set('Read','Unread') DEFAULT NULL,
   Cost int(9) UNSIGNED NOT NULL,
@@ -80,7 +79,17 @@ CREATE TABLE Texts (
   Date_sent datetime DEFAULT NULL,
   Date_recieved datetime DEFAULT NULL,
   PRIMARY KEY (Text_ID),
-  CONSTRAINT FOREIGN KEY (Msg_SID) references Employees (EM_ID)
+  CONSTRAINT FOREIGN KEY (Msg_SID) references Employees (EM_ID)ON UPDATE CASCADE
+);
+CREATE TABLE Recievers (
+
+  
+  Text_ID int(9) UNSIGNED NOT NULL ,
+  Recv_EM_ID int(9) UNSIGNED NOT NULL,
+
+  PRIMARY KEY (Text_ID,Recv_EM_ID),
+  CONSTRAINT FOREIGN KEY (Recv_EM_ID) references Employees (EM_ID)  ON UPDATE CASCADE,
+  CONSTRAINT FOREIGN KEY (Text_ID) references Texts (Text_ID)  ON UPDATE CASCADE
 );
 
 CREATE TABLE TM_Members_Of_Grps (
@@ -90,8 +99,8 @@ GrpMbr_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   Group_Role  varchar(30) DEFAULT NULL,
   Group_Status set('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (GrpMbr_ID),
-CONSTRAINT FOREIGN KEY (Group_ID) references Groups (Group_ID),
-CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID)
+CONSTRAINT FOREIGN KEY (Group_ID) references Groups (Group_ID)ON UPDATE CASCADE,
+CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID) ON UPDATE CASCADE
 ) ;
 
 CREATE TABLE Word_Filters (
@@ -139,6 +148,18 @@ INSERT INTO Logins VALUES
 (2, 'w123', '637d1f5c6e6d1be22ed907eb3d223d858ca396d8', 'admin', 3, '2016-10-12 08:23:46'), 
 (3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 08:23:46'); 
 
+INSERT INTO Texts VALUES 
+(1, 2, 'OutgingAPI', 1234, 3214, 'hello', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00'),
+(2, 1, 'OutgingAPI', 362, 892, 'location : 201', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00'),
+(3, 2, 'OutgingAPI', 12, 3214, 'washington', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00');
+
+INSERT INTO  Recievers VALUES
+(1,1),
+(1,2),
+(2,3),
+(2,5),
+(2,6),
+(2,7);
 
 -- User 1 password is pass
 -- 2 password is haha
@@ -164,7 +185,3 @@ INSERT INTO   Word_Filters VALUES
 (8, 'can', 'Active'),
 (9, 'be', 'Active'),
 (10, 'why', 'Active');
-
---
-
-    
