@@ -62,7 +62,7 @@ CREATE TABLE Logins (
   User_Password varchar(50) NOT NULL,
   User_Role set('admin','user','view_only') NOT NULL,
   EM_ID int(9) UNSIGNED NOT NULL,
-  Last_login datetime DEFAULT CURRENT_TIMESTAMP,
+  Last_login datetime DEFAULT NULL,
   PRIMARY KEY (User_ID),
   CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID) ON UPDATE CASCADE
 );
