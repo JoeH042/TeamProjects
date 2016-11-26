@@ -25,22 +25,7 @@ Choose the Box?
 <label>&nbsp;</label>
                 <input type="submit" value="search">
          
-     <table>
-            <tr>
-                <th> Message Number </th>
-                <th> Message Status</th>
-                <th> Sender Number </th>
-                <th> Receiver Number </th>
-                <th> Content </th>
-                <th> Message Cost </th>
-                <th> Date Sent </th>
-                <th> Date Recieved </th>
-                <th>&nbsp;</th>
-                <!--Add Role, Manager, split first and last name -->
-            </tr>
-           
-                <!-- Add an option to delete row -->
-        </table>
+    
 
 
     
