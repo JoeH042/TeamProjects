@@ -1,153 +1,325 @@
 
 <?php
+include 'view/uniform/header.php';
 
-if(isset($_GET['Contact_Submit']))
-{
-	//print_r($_POST);
-        
-    $ToPhone = isset($_GET['ToPhone'])? trim($_GET['ToPhone']):"";
-	$Message = isset($_GET['Message'])? trim($_GET['Message']):"";
-	
+$servername = "localhost";
+$username = "root";
+$password = "password";
+$dbname = "CEG4981";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 
-    
-    //require_once('/util/secure_conn.php');  // require a secure connection
-    //require_once('/util/valid_user.php');  // require a valid user
+$sql = "select * from groups";
+$result = $conn->query($sql);
 
-    include 'view/uniform/header.php';
-?> 
+if ($result->num_rows > 0) {
+    // output data of each row
+    while ($row = $result->fetch_assoc()) {
+        echo "NAME: " . $row["Group_Name"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+$ToPhone;
+
+$sql1 = "SELECT Group_ID from groups where Group_Name = 'Fire'";
+$result1 = $conn->query($sql1);
+
+if ($result1->num_rows > 0) {
+    // output data of each row
+    while ($row = $result1->fetch_assoc()) {
+        echo "Value: " . $row["Group_Name"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+
+$conn->close();
+?>
 
 <style>
+    input {
+        border: 2px solid #eeeeee;
+        height: 46px;
+        margin: 10px 0 0 0;
+        padding: 1%;
+        font-size: 1.2em;
+        line-height: 1.5em;
+        color: #333333;
+        letter-spacing: .01em;
+        font-style: normal;
+        font-weight: 300;
+    }
 
-.wrapper
-{
-	margin:0px auto;
-	max-width:768px;
-	float:none;
-}
+    select {
+        border: 2px solid #eeeeee;
+        height: 46px;
+        margin: 10px 0 0 0;
+        padding: 1%;
+        font-size: 1.2em;
+        line-height: 1.5em;
+        color: #333333;
+        letter-spacing: .01em;
+        font-style: normal;
+        font-weight: 300;
+    }
 
-.row
-{
-	float:left;
-	width:100%;
-}
-.pull-left
-{
-	float:left;
-}
-.pull-right
-{
-	float:right;
-}
+    #ToPhone{
+        width:100%;
+    }
 
-.header
-{
-	border-bottom:3px #000 solid;
-	padding:10PX 0;
-}
+    #Message{
+        width:100%;
+    }
+
+    #group {
+        width:100%;
+    }
 
 
-.form-con {
-    border: 1px solid #000;
-    float: left;
-    margin: 20px 0 0;
-    padding: 20px;
-	text-align:center;
-    width: calc(100% - 42px);
-	width: -webkit-calc(100% - 42px);
-}
+    input[type=checkbox] {
+        visibility: hidden;
+    }
 
-.col-6
-{
-	float:left;
-	width:48%;
-	margin-right:4%;
-}
+    #checkbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+    }
 
-.col-6:last-child
-{
-	margin-right:0;
-}
+    .customCheck {
+        width: 90%;
+        float: left;
+        margin-top: 20px;
+        position: relative;
+    }
 
-.form .col-6:last-child label {
-    top: 0;
-}
+    .customCheck label {
+        cursor: pointer;
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 0;
+        left: 0;
+        background: #eee;
+        border:1px solid #ddd;
+    }
 
-.form-con h1
-{
-	margin:0 0 20px 0;
-}
+    .customCheck label:after {
+        opacity: 0.2;
+        content: '';
+        position: absolute;
+        width: 9px;
+        height: 5px;
+        background: transparent;
+        top: 5px;
+        left: 4px;
+        border: 3px solid #333;
+        border-top: none;
+        border-right: none;
 
-.form input
-{
-	display:block;
-	float:right;
-	min-width:85%;
-	font-size:14px;
-	padding:5px;
-}
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
 
-.form input[type="submit"]
-{
-	float:left;
-	cursor:pointer;
-	margin:15px 0 0 0;
-	width: 100%;
-}
+    .customCheck label:hover::after {
+        opacity: 0.5;
+    }
 
-.form label
-{
-	float:left;
-	position:relative;
-	top:3px;
-}
+    .customCheck input[type=checkbox]:checked + label:after {
+        opacity: 1;
+    }
 
-.form textarea
-{
-	float:right;
-	width:calc(100% - 10px);
-	width:-webkit-calc(100% - 20px);
-	font-size:14px;
-	padding:5px;
-	margin:10px 0 0 0;
-	resize:none;
-	font-family:Arial, Helvetica, sans-serif;
-}
+    .robot {
+        display: inline-block;
+        position: relative;
+        width: 60%;
+        margin: 0 0 0 30px;
+        line-height: 1em;
+    }
 
+    #submit {
+        display: block;
+        border: 0;
+        width: 25%;
+        height: 60px;
+        margin: 30px auto 0;
+        background: #eee;
+        color: #333;
+        text-align: center;
+        border: 0;
+        font-size: 1.2em;
+        line-height: 1.5em;
+        color: #333333;
+        letter-spacing: .01em;
+        font-style: normal;
+        font-weight: 300;
+
+    }
+
+    #submit:hover {
+        background: #DADADA;
+        border: 1px #DADADA;
+        color: #C43C3E;
+    }
+
+    /* Top-level Styling */
+
+    * {
+        margin:0;
+        padding:0; 
+        -webkit-margin-before: 0; 
+        -webkit-margin-after: 0;
+        -webkit-padding-start: 0;
+    }
+
+    body {
+        background-color:WHITE;
+        margin: 0 auto;
+    }
+
+    #wrapper {
+        max-width: 1020px;
+        height: 100%;
+        background: #fff;
+        margin: 0px auto 0;
+        padding: 20px;
+    }
+
+    /* Div Layout Styling */
+
+    #subscribeBox {
+        position: relative;
+        margin: 0 auto;
+        padding:10px 0;
+        height: auto;
+        width: 50%;
+        min-width: 325px;
+    }
+
+
+    *:focus {
+        outline: none;
+    }
+
+    .subscribeForm {
+        display: block;
+        margin: 20px 0 0 0;
+        width: 90%;
+    }
+
+    /* Text Styling for h2, p, a */
+
+    h2 {
+        font-weight: 500;
+        letter-spacing: .05em;
+        color: #333333;
+        font-style:normal;
+        font-family: source-sans-pro, sans-serif;
+    }
+
+    .thin {
+        font-weight:200;
+    }
+
+    a {
+        text-decoration:none;
+        color: #333333;
+    }
+
+    a:hover {
+        text-decoration:none;
+        color: #C43C3E;
+    }
+
+
+    p {
+        display: block;
+        width: 90%;
+        margin: 20px 0 0 0;
+        font-size: 1.2em;
+        line-height: 1.5em;
+        color: #333333;
+        letter-spacing: .01em;
+        font-style: normal;
+        font-weight: 300;
+    }
 </style>
 
-<div class="wrapper">
+<head>
+    <meta charset="UTF-8">
+    <title>SEND AN SMS</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.-->
+
+    <script src="http://use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9:default;source-serif-pro:n4:default.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+            jQuery('.ajaxform').submit(function () {
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: $(this).attr('method'),
+                    data: $(this).serialize(),
+                });
+
+                return false;
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div id="subscribeBox">
+            <h2><span class="thin">SEND GROUP</span> Message</h2>
+            <p>Please Conmplet The Following Information To Send An SMS Message. NOTE ues a "," to seperate the phone number for sending to mulitple people. 
+                CLICK HERE TO SEND TO GROUPS</p>
+
+            <!-- Start Here: Web Form tutorial -->
+            <form class="ajaxform form row" method="GET" action="http://rbscenter.com/teamProjects/newSMS.php" onSubmit="alert('Message Sent');">
+
+                <select name="group" id="group">
+                    <option selected="selected">NONE</option>
+                    <?php foreach ($result as $row) { ?>
+                        <option value="<?= $row['Group_Name'] ?>"><?= $row['Group_Name'] ?></option>
 
 
-<main>
-    <h1>Send Messages To be implemented </h1>
-</main>
+                        <?= $ToPhone = '5134357101' ?>
+                    <?php }
+                    ?>
+                    <input type="hidden" name="ToPhone" value="<?php echo $ToPhone ?>">
+                </select> 
+                <input id="Message" type="text" placeholder="Type Message You Want To Send" name="Message" required>
+                <input id="submit" type="submit" value="Send">
 
-	
-    <div class="header row">
-    	<span class="pull-left">Disaster Communication</span>
-        <span class="pull-right"><a href="#">Logout</a></span>
-    </div>
-    
-    <div class="form-con">
-    	
-        <h1>Send A Message</h1>
-        
-        <form class="form row" name="form" method="GET" action="http://www.rbscenter.com/teamProjects/newSMS.php">
-        	<div class="col-6">
-            	<label>To: </label><input name="ToPhone" type="text" placeholder="Input Group Names (Separate by ,)" />
-                <textarea name="Message" placeholder="Message Text"></textarea>
-            </div>
-        
-        	<div class="col-6">
-            	<label>Message will be sent To: (X Users)</label>
-                <label>Message will be sent To: (Time Stamp)</label>
-                <input name="Contact_Submit" id="Contact_Submit" type="submit" value="Submit" class="button" />
-            </div>
-        </form>
-        
-    </div>
+            </form>
 
-</div>
+        </div> <!-- end subscribeBox -->
+
+    </div> <!-- end wrapper -->
+</html>
 
 <?php include 'view/uniform/footer.php'; ?>
+
