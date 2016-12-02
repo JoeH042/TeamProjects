@@ -14,13 +14,25 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-//$sql = "INSERT INTO texts (Text_ID, Msg_SID, Direction, Sender_Num, Recieve_Num, Text_Content, View_Status, Cost, Msg_Status, Date_sent, Date_recieved)
-//VALUES ('1','1','1','1','1','1','1','1','a','a','a')";
+$SQL  = "SELECT EM_ID FROM employees WHERE EM_Phone = '$number'";
+$result = $conn->query($SQL);
+$row = $result->fetch_assoc();
+$EM_ID = $row["EM_ID"];
 
-$sql = "INSERT INTO texts (Text_ID, Msg_SID, Direction)
-VALUES ('131','1','IN')";
 
-if ($conn->query($sql) === TRUE) {
+
+$INSERT = "insert into texts (Msg_SID,Direction,Sender_Num,Text_Content,Cost, Msg_Status, Date_sent)
+VALUES ('$EM_ID','Incomming','$number','$body','1','RECIEVED',NOW())";
+
+if ($conn->query($INSERT) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+
+$INSERT = "";
+if ($conn->query($INSERT) === TRUE) {
     echo "New record created successfully";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
