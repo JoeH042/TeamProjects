@@ -12,15 +12,15 @@
         <input type="text" name="em_id" value= "<?php echo $employee_id; ?>" readonly>
         
         <label>First Name:</label>
-        <input type="text" name="fname" pattern="^[-a-zA-Z]+$" value="<?php echo $fname; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="fname" pattern="^[-a-zA-Z ]+$" value="<?php echo $fname; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Middle Name:</label>
-        <input type="text" name="mname" pattern="^[-a-zA-Z]+$" value="<?php echo $mname; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="mname" pattern="^[-a-zA-Z ]+$" value="<?php echo $mname; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Last Name:</label>
-        <input type="text" name="lname" pattern="^[-a-zA-Z]+$" value="<?php echo $lname; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="lname" pattern="^[-a-zA-Z ]+$" value="<?php echo $lname; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Email:</label>
@@ -28,7 +28,7 @@
         <br><br>           
         
         <label>Phone Number:</label>
-        <input type="text" name="phone" pattern="^\d{10}$" value="<?php echo $phone; ?>" title="Phone number input must contain 10 digits. No extra characters allowed."/>
+        <input type="text" name="phone" pattern="^(\+1)+\d{10}$" value="<?php echo $phone; ?>" title="Phone number input must contain a + followed by 9 digits. No extra characters allowed."/>
         <br><br>        
         
         <label>Status:</label>

@@ -66,7 +66,6 @@ switch ($action){
         $departments = get_departments();
         $man_dpt_message = "";
         include('view/manage_directory/departments.php');
-        
         break;
      case 'edit_department':
         $dept_id = filter_input(INPUT_POST, 'Dept_ID');

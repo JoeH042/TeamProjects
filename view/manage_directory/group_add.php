@@ -13,15 +13,15 @@
         <input type="text" name="grpid" value= "<?php echo $group_id; ?>" readonly>
         
         <label>Group Name:</label>
-        <input type="text" name="grpname" pattern="^[-a-zA-Z]+$" value="<?php echo $group_name; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="grpname" pattern="^[-a-zA-Z ]+$" value="<?php echo $group_name; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Group Description:</label>
-        <input type="text" name="grpdes" pattern="^[-a-zA-Z]+$" value="<?php echo $group_des; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="grpdes" pattern="^[-a-zA-Z ]+$" value="<?php echo $group_des; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Group Manager:</label>
-        <input type="text" name="grpldr" pattern="^[-a-zA-Z]+$" value="<?php echo $group_ldr; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="grpldr" pattern="^\d{1,10}+$" value="<?php echo $group_ldr; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         

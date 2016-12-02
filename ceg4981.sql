@@ -81,12 +81,10 @@ CREATE TABLE Texts (
 );
 CREATE TABLE Recievers (
 
-  
   Text_ID int(9) UNSIGNED NOT NULL ,
   Recv_EM_ID int(9) UNSIGNED NOT NULL,
   View_Status set('Read','Unread') DEFAULT NULL,
   Date_recieved datetime DEFAULT NULL,
-
   PRIMARY KEY (Text_ID,Recv_EM_ID),
   CONSTRAINT FOREIGN KEY (Recv_EM_ID) references Employees (EM_ID)  ON UPDATE CASCADE,
   CONSTRAINT FOREIGN KEY (Text_ID) references Texts (Text_ID)  ON UPDATE CASCADE
@@ -109,9 +107,10 @@ CREATE TABLE Word_Filters (
   Word_Status set('Active','Inactive') DEFAULT 'Active',
   PRIMARY KEY (Word_ID)
 );
+
 -- populate the database
 INSERT INTO Employees VALUES
-(1, 'Mary', 'M', 'Brown', 'm123@wright.edu', +11937123456, 'Active', 1),
+(1, 'Mary', 'M', 'Brown', 'm123@wright.edu', +19372034641, 'Active', 1),
 (2, 'Anna', 'Gar', 'Lee', 'A321@wright.edu', +11937654321, 'Inactive', 1),
 (3, 'Wendy', 'Rex', 'Meyer', 'W156@wright.edu', +114294967295, 'Active', 1),
 (4, 'Nina', 'Matty', 'Perterson', 'W.12@wright.edu', +11144967295, 'Inactive', 2),
@@ -124,10 +123,10 @@ INSERT INTO Departments VALUES
 (1, 'CEG', 'Computer Engineering', 3,'active'),
 (2, 'CS', 'COMPUTER SCIENCE', 2,'inactive'),
 (3, 'Mth', 'Mathmatics', 1,'active'),
-
 (4, 'ART', 'ART', 5,'active'),
 (5, 'BIO', 'BIO SCIENCE', 7,'active'),
 (6, 'CHE', 'Chemistry', 4,'inactive');
+
 INSERT INTO Groups VALUES
 (1, 'Fire', 'first responder of fire scene',2,'active'),
 (2, 'Chemecial', 'First responder of chemical scene',3,'active'),
@@ -135,14 +134,14 @@ INSERT INTO Groups VALUES
 (4, 'Smoke', 'First responder of Somke',4,'active'),
 (5, 'Earthquake', 'first responder of earthquake',4,'active'),
 (6, 'Storm', 'First responder of Storm',3,'active');
+
 INSERT INTO Roles VALUES
-(1, 'account', 'founding management', 1,4,'active'),
+(1, 'Police Liason', 'PR and policy expert', 1,1,'active'),
 (2, 'Customer Service', 'Front end customer issue addressing',2, 3,'active'),
 (3, 'Manager', 'founding management', 2,2,'active'),
 (4, 'Customer Service', 'Front end customer issue addressing',3, 5,'active'),
 (5, 'account', 'founding management', 2,6,'active'),
 (6, 'Customer Service', 'Front end customer issue addressing',3, 6,'active');
-
 
 INSERT INTO Logins VALUES
 (1, 'w079yxw', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'admin', 5, '2016-10-12 08:23:46'),
@@ -175,6 +174,7 @@ INSERT INTO TM_Members_Of_Grps VALUES
 (7,7, 5, '','inactive'),
 (8,8, 6,'Leader', 'inactive'),
 (9,6, 3,'', 'active');
+
 INSERT INTO   Word_Filters VALUES
 (1, 'a', 'Active'),
 (2, 'the ', 'Active'),

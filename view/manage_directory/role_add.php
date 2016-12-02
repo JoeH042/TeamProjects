@@ -13,19 +13,19 @@
         <input type="text" name="rid" value= "<?php echo $role_id; ?>" readonly>
         
         <label>Role Name:</label>
-        <input type="text" name="rname" pattern="^[-a-zA-Z]+$" value="<?php echo $role_name; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="rname" pattern="^[-a-zA-Z ]+$" value="<?php echo $role_name; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Role Description:</label>
-        <input type="text" name="rdes" pattern="^[-a-zA-Z]+$" value="<?php echo $role_des; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="rdes" pattern="^[-a-zA-Z ]+$" value="<?php echo $role_des; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Department ID:</label>
-        <input type="text" name="rdepid" pattern="^[-a-zA-Z]+$" value="<?php echo $role_dpt; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="rdepid" pattern="^\d{1,10}$" value="<?php echo $role_dpt; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Employee ID:</label>
-        <input type="text" name="remid" pattern="^[-a-zA-Z]+$" value="<?php echo $role_em; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="remid" pattern="^\d{1,10}+$" value="<?php echo $role_em; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br><br>
         
         <label>Status:</label>

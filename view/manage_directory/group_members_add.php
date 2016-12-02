@@ -18,7 +18,7 @@
        <input type="text" name="grpid" value= "<?php echo $grp_id; ?>" >
         <br>
         <label> Role:</label>
-        <input type="text" name="grprole" pattern="^[-a-zA-Z]+$" value="<?php echo $role; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="grprole" pattern="^[-a-zA-Z ]+$" value="<?php echo $role; ?>" title="Name input accepts alphabetic characters and dashes only." />
         <br>
         
        

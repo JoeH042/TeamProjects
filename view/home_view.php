@@ -14,15 +14,11 @@
         <h4>Unread Received Messages: <?php echo $userReceivedMessages." "; ?></h4>
         <h4>Pending Sent Messages: <?php echo $userPendingMessages; ?></h4>
     </div>
-    <div class="right-side">
-        <h2>My Activity</h2>
-        <!--Insert Plot or graph here -->
-    </div>
 </section>
 
 <section class="team_statistics">
     
-    <h1>Fancy Queries</h1>
+    <h1>Query Reports</h1>
     <div class="float-box">
         <h4>5 Hour, Trending Keywords</h4>
     </div>

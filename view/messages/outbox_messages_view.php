@@ -18,7 +18,7 @@
         <table>
             <tr>
                 <th> Text ID </th>
-                <th> Reciever ID </th>
+                <th> Receiver ID </th>
                 <th> Phone Number </th>
                 <th> Text Content </th>
                 <th> Status </th>

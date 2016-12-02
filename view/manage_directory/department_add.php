@@ -13,15 +13,15 @@
         <input type="text" name="dpt_id" value= "<?php echo $dept_id; ?>" readonly>
         
         <label>Department Name:</label>
-        <input type="text" name="dptame" pattern="^[-a-zA-Z]+$" value="<?php echo $depname; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="dptame" pattern="^[-a-zA-Z ]+$" value="<?php echo $depname; ?>" title="Name input accepts alphabetic characters,dashes, and spaces only." />
         <br><br>
         
         <label>Department Description:</label>
-        <input type="text" name="dpdes" pattern="^[-a-zA-Z]+$" value="<?php echo $depdes; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="dpdes" pattern="^[-a-zA-Z ]+$" value="<?php echo $depdes; ?>" title="Description input accepts alphabetic characters and spaces only." />
         <br><br>
         
         <label>Department Manager:</label>
-        <input type="text" name="dpmrg" pattern="^[-a-zA-Z]+$" value="<?php echo $depmanager; ?>" title="Name input accepts alphabetic characters and dashes only." />
+        <input type="text" name="dpmrg" pattern="^\d{1,10}+$" value="<?php echo $depmanager; ?>" title="Name input accepts alphabetic characters, dashes, and spaces only." />
         <br><br>
         
         
