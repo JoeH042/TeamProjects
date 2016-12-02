@@ -12,7 +12,7 @@ CREATE TABLE Employees (
   EM_Middlename VARCHAR(30) NOT NULL,
   EM_Lastname VARCHAR(30) NOT NULL,
   EM_Email VARCHAR(50) DEFAULT NULL,
-  EM_Phone INT(20) UNSIGNED DEFAULT NULL,
+  EM_Phone VARCHAR(20) DEFAULT NULL,
   EM_Status set('Active','Inactive') DEFAULT 'Active',
   EM_Department_ID int(9) UNSIGNED NOT NULL,
   PRIMARY KEY (EM_ID)
@@ -66,18 +66,16 @@ CREATE TABLE Logins (
   PRIMARY KEY (User_ID),
   CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID) ON UPDATE CASCADE
 );
+
 CREATE TABLE Texts (
   Text_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   Msg_SID int(9) UNSIGNED NOT NULL,
   Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
-  Sender_Num INT(20) UNSIGNED DEFAULT NULL,
-  Recieve_Num INT(20) UNSIGNED DEFAULT NULL,
+  Sender_Num VARCHAR(20) DEFAULT NULL,
   Text_Content text NOT NULL,
-  View_Status set('Read','Unread') DEFAULT NULL,
   Cost int(9) UNSIGNED NOT NULL,
   Msg_Status set('Unsent','Sent','Delievered') DEFAULT NULL,
   Date_sent datetime DEFAULT NULL,
-  Date_recieved datetime DEFAULT NULL,
   PRIMARY KEY (Text_ID),
   CONSTRAINT FOREIGN KEY (Msg_SID) references Employees (EM_ID)ON UPDATE CASCADE
 );
@@ -86,6 +84,8 @@ CREATE TABLE Recievers (
   
   Text_ID int(9) UNSIGNED NOT NULL ,
   Recv_EM_ID int(9) UNSIGNED NOT NULL,
+  View_Status set('Read','Unread') DEFAULT NULL,
+  Date_recieved datetime DEFAULT NULL,
 
   PRIMARY KEY (Text_ID,Recv_EM_ID),
   CONSTRAINT FOREIGN KEY (Recv_EM_ID) references Employees (EM_ID)  ON UPDATE CASCADE,
@@ -111,14 +111,15 @@ CREATE TABLE Word_Filters (
 );
 -- populate the database
 INSERT INTO Employees VALUES
-(1, 'Mary', 'M', 'Brown', 'm123@wright.edu', 1937123456, 'Active', 1),
-(2, 'Anna', 'Gar', 'Lee', 'A321@wright.edu', 1937654321, 'Inactive', 1),
-(3, 'Wendy', 'Rex', 'Meyer', 'W156@wright.edu', 4294967295, 'Active', 1),
-(4, 'Nina', 'Matty', 'Perterson', 'W.12@wright.edu', 1144967295, 'Inactive', 2),
-(5, 'Yipeng', 'Craig', 'Wang', 'wang.161@wright.edu', 9372312311, 'Active',  2),
-(6, 'John', 'Billy', 'Johnson', 'W.@right.edu', 4294961111, 'Active', 4),
-(7, 'XP', 'Carh', 'Windows', 'W12@gmail.edu', 4472951111, 'Inactive', 3),
-(8, 'Tina', 'Shamwow', 'June', 'wa@wright.edu', 9372311111, 'Active',  2);
+(1, 'Mary', 'M', 'Brown', 'm123@wright.edu', +11937123456, 'Active', 1),
+(2, 'Anna', 'Gar', 'Lee', 'A321@wright.edu', +11937654321, 'Inactive', 1),
+(3, 'Wendy', 'Rex', 'Meyer', 'W156@wright.edu', +114294967295, 'Active', 1),
+(4, 'Nina', 'Matty', 'Perterson', 'W.12@wright.edu', +11144967295, 'Inactive', 2),
+(5, 'Yipeng', 'Craig', 'Wang', 'wang.161@wright.edu', +19372312311, 'Active',  2),
+(6, 'John', 'Billy', 'Johnson', 'W.@right.edu', +14294961111, 'Active', 4),
+(7, 'XP', 'Carh', 'Windows', 'W12@gmail.edu', +14472951111, 'Inactive', 3),
+(8, 'Tina', 'Shamwow', 'June', 'wa@wright.edu', +19372311111, 'Active',  2);
+
 INSERT INTO Departments VALUES
 (1, 'CEG', 'Computer Engineering', 3,'active'),
 (2, 'CS', 'COMPUTER SCIENCE', 2,'inactive'),
@@ -149,17 +150,17 @@ INSERT INTO Logins VALUES
 (3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 08:23:46'); 
 
 INSERT INTO Texts VALUES 
-(1, 2, 'OutgingAPI', 1234, 3214, 'hello', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00'),
-(2, 1, 'OutgingAPI', 362, 892, 'location : 201', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00'),
-(3, 2, 'OutgingAPI', 12, 3214, 'washington', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00');
+(1, 2, 'OutgingAPI', 1234, 'hello', 3, 'Sent', '2016-11-30 06:00:00'),
+(2, 1, 'OutgingAPI', 362, 'location : 201', 3, 'Sent', '2016-11-30 06:00:00'),
+(3, 2, 'OutgingAPI', 12, 'washington', 3, 'Sent', '2016-11-30 06:00:00');
 
 INSERT INTO  Recievers VALUES
-(1,1),
-(1,2),
-(2,3),
-(2,5),
-(2,6),
-(2,7);
+(1,1,'2016-11-23 08:00:00','Read'),
+(1,2,'2016-11-23 08:00:00','Read'),
+(2,3, '2016-11-23 08:00:00','Read'),
+(2,5,'2016-11-23 08:00:00','Read'),
+(2,6,'2016-11-23 08:00:00','Read'),
+(2,7,'2016-11-23 08:00:00','Read');
 
 -- User 1 password is pass
 -- 2 password is haha
