@@ -153,23 +153,26 @@ function findwords(){
         
     global $db;
     $query="SELECT Text_Content FROM Texts ";
-     $statement = $db->prepare($query);       
+    $statement = $db->prepare($query);       
     $statement->execute();
     $input = $statement->fetch(); 
     $all = implode("  ", $input);
     $allArray = explode(" ", $all); 
-    $find = array(",",".","(",")","!","?");
+    $find = array(",",".","(",")","!","?");//remove special chars
     $replace = array("");
     $wordArray = str_replace($find,$replace,$allArray);
     
-    foreach ($word as $wordArray){
-        
-        
-        
-    }
+    $newquery="SELECT Word FROM Exlude_Words WHERE Status=:active";
+    $newstatement = $db->prepare($newquery);       
+    $newstatement->execute();
+    $exclude_words = $statement->fetchAll(); 
     
+    $newWordArray = str_replace($exclude_words);
     
-    print_r( $allArray);
-
+    //foreach ($word as $wordArray){    
+     //   
+    //}
+  
+    //print_r( $allArray);
     }
     
