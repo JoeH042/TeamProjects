@@ -28,7 +28,7 @@
         <br><br>           
         
         <label>Phone Number:</label>
-        <input type="text" name="phone" pattern="^(\+1)+\d{10}$" value="<?php echo $phone; ?>" title="Phone number input must contain a + followed by 9 digits. No extra characters allowed."/>
+        <input type="text" name="phone" pattern="^\d{10}$" value="<?php echo $phone; ?>" title="Phone number input must contain a + followed by 9 digits. No extra characters allowed."/>
         <br><br>        
         
         <label>Status:</label>

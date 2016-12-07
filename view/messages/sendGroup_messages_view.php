@@ -277,7 +277,7 @@ $result = $conn->query($sql);
                 <a href="/view/messages/sendGroup_messages_view.php">CLICK HERE TO SEND SINGLE MESSAGE</a></p>
 
             <!-- Start Here: Web Form tutorial -->
-            <form class="ajaxform form row" method="POST" action="/textProcessor.php" onSubmit="alert('Message Sent');">
+            <form class="ajaxform form row" method="POST" action="http://localhost/emergency_command/textProcessor.php" onSubmit="alert('Message Sent');">
 
                 <select name="Group" id="Group">
                     <option selected="selected">NONE</option>

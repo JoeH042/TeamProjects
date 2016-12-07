@@ -145,7 +145,7 @@ function get_24_hr_popular($userName){
     $statement->bindValue(':sent', 'Sent');
     $statement->execute();
     $input = $statement->fetchAll(); //$array = array_slice($input, 0, 5, true);     //only send the top 5
-    echo $input[2]['EM_ID'];
+    //echo $input[2]['EM_ID'];
     return $input; 
     }   
     
@@ -156,23 +156,32 @@ function findwords(){
     $statement = $db->prepare($query);       
     $statement->execute();
     $input = $statement->fetch(); 
-    $all = implode("  ", $input);
+    $all = implode(" ", $input);
     $allArray = explode(" ", $all); 
     $find = array(",",".","(",")","!","?");//remove special chars
     $replace = array("");
     $wordArray = str_replace($find,$replace,$allArray);
     
-    $newquery="SELECT Word FROM Exlude_Words WHERE Status=:active";
-    $newstatement = $db->prepare($newquery);       
-    $newstatement->execute();
-    $exclude_words = $statement->fetchAll(); 
+    $exclude_array = find_exclude_words();
     
-    $newWordArray = str_replace($exclude_words);
+    $array_with_exlusions = array_diff($wordArray, $exclude_array);
     
-    //foreach ($word as $wordArray){    
-     //   
-    //}
-  
-    //print_r( $allArray);
+    
+    print_r($array_with_exlusions);
     }
+
+    //return an array of excluded words
+function find_exclude_words(){
+    global $db;
+    $newquery="SELECT Word FROM Word_filters WHERE Word_Status = :active";
     
+    $newstatement = $db->prepare($newquery); 
+    $newstatement->bindValue(':active', 'Active');
+    $newstatement->execute();    
+    $temp = $newstatement->fetchAll();
+    $array = array();
+    foreach($temp as $x){
+        array_push($array, $x['Word']);
+    }
+    return $array;
+}    

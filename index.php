@@ -479,6 +479,12 @@ switch ($action){
         }
         
         break;
+        
+        
+    case 'send_group_view':
+        include('view/messages/sendGroup_messages_view.php');
+           break;
+        
          case 'viewmessages':
              $user=$_SESSION['username'];
              $userid=  getemid($user);

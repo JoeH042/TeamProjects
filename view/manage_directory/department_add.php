@@ -21,7 +21,7 @@
         <br><br>
         
         <label>Department Manager:</label>
-        <input type="text" name="dpmrg" pattern="^\d{1,10}+$" value="<?php echo $depmanager; ?>" title="Name input accepts alphabetic characters, dashes, and spaces only." />
+        <input type="text" name="dpmrg"  value="<?php echo $depmanager; ?>" title="Name input accepts alphabetic characters, dashes, and spaces only." />
         <br><br>
         
         

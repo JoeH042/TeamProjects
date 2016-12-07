@@ -7,7 +7,7 @@
  */
 function get_outmessages($id) {
     global $db;
-    $query = 'SELECT * FROM Texts INNER JOIN Recievers INNER JOIN Employees ON Texts.Msg_SID=:id AND Texts.Text_ID=Recievers.Text_ID AND Employees.EM_ID=Recievers.Recv_EM_ID';
+    $query = 'SELECT * FROM Texts INNER JOIN Recievers INNER JOIN Employees ON Texts.EM_ID=:id AND Texts.Text_ID=Recievers.Text_ID AND Employees.EM_ID=Recievers.Recv_EM_ID';
     $statement = $db->prepare($query);
      $statement->bindValue(':id',$id);
     $statement->execute();

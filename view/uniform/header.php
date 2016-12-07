@@ -25,7 +25,17 @@
                         <a href="index.php?action=group_view">Groups</a>
                     </div>
                 </li>
-                <li><a href="index.php?action=send_messages_view">Send Message</a></li>
+                
+                <li class = "dropdown">
+                    <a href ="#" class ="dropbtn">Send Messages</a>
+                    <div class="dropdown-content">
+                        <a href="index.php?action=send_messages_view">To Individual</a>
+                        <a href="index.php?action=send_group_view">To Group</a>
+                    </div>
+                </li>
+                
+                
+                
                 <li><a href="index.php?action=view_messages_view">View Messages</a></li>
                 <li class = "dropdown">
                     <a href ="#" class ="dropbtn">Manage Directory</a>
