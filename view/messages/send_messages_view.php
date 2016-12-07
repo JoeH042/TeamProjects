@@ -252,12 +252,13 @@ include 'view/uniform/header.php';
         <div id="subscribeBox">
             <h2><span class="thin">SEND New</span> Message</h2>
             <p>Please Complete The Following To Send An SMS Message
-                <a href="http://localhost:8000/view/messages/sendGroup_messages_view.php">CLICK HERE TO SEND TO GROUPS</a></p>
+                <a href="./sendGroup_messages_view.php"> CLICK HERE TO SEND TO GROUPS</a></p>
 
             <!-- Start Here: Web Form tutorial -->
-            <form name="sentSMS" class="ajaxform form row" action="http://localhost:8000/textProcessor.php" method="POST" onSubmit="alert('Message Sent');">
+            <form name="sentSMS" class="ajaxform form row" action="/textProcessor.php" method="POST" onSubmit="alert('Message Sent');">
 
                 <input id="ToPhone" type="text" placeholder="Phone Number (,)" Name="ToPhone">
+                <input type="hidden" name="user" value="<?php echo $_SESSION['username'] ?>">
                 <input id="Message" type="text" placeholder="Message to be sent" name="Message" required>
                 <input id="submit" type="submit" value="Send" >
 
@@ -269,6 +270,7 @@ include 'view/uniform/header.php';
 </html>
 
 <?php include 'view/uniform/footer.php'; ?>
+
 
 
 
