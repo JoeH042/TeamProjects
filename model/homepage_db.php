@@ -147,5 +147,29 @@ function get_24_hr_popular($userName){
     $input = $statement->fetchAll(); //$array = array_slice($input, 0, 5, true);     //only send the top 5
     echo $input[2]['EM_ID'];
     return $input; 
-    }    
+    }   
+    
+function findwords(){
+        
+    global $db;
+    $query="SELECT Text_Content FROM Texts ";
+     $statement = $db->prepare($query);       
+    $statement->execute();
+    $input = $statement->fetch(); 
+    $all = implode("  ", $input);
+    $allArray = explode(" ", $all); 
+    $find = array(",",".","(",")","!","?");
+    $replace = array("");
+    $wordArray = str_replace($find,$replace,$allArray);
+    
+    foreach ($word as $wordArray){
+        
+        
+        
+    }
+    
+    
+    print_r( $allArray);
+
+    }
     

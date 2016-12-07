@@ -37,6 +37,7 @@ switch ($action){
         $userReceivedMessages = get_received_messages($userName);
         $userPendingMessages = get_pending_messages($userName);
         $popularUsers = get_24_hr_popular($userName);
+        findwords();
         include('view/home_view.php');
        //echo get_member(1);
         break;
@@ -469,7 +470,7 @@ switch ($action){
             $userReceivedMessages = get_received_messages($userName);
             $userPendingMessages = get_pending_messages($userName);
             $popularUsers = get_24_hr_popular($userName);
-
+            findwords();    
              include('view/home_view.php');
     
         } else {
