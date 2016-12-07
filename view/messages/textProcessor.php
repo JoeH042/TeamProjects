@@ -52,6 +52,11 @@ AND TM_Members_Of_Grps.EM_ID=Employees.EM_ID";
     $IsGroup = TRUE;
 }
 
+ 
+
+if ($IsGroup) {
+    foreach ($resultset as &$value) {
+        
         $SQL = "SELECT EM_ID FROM logins WHERE User_name = $USER";
         $result = $conn->query($SQL);
         $row = $result->fetch_assoc();
@@ -66,9 +71,6 @@ AND TM_Members_Of_Grps.EM_ID=Employees.EM_ID";
         $result = $conn->query($SQL);
         $row = $result->fetch_assoc();
         $Text_ID = $row["Text_ID"];
-
-if ($IsGroup) {
-    foreach ($resultset as &$value) {
         
         $SQL = "SELECT EM_ID FROM employees WHERE EM_Phone = $Value";
         $result = $conn->query($SQL);
