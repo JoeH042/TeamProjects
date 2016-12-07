@@ -11,6 +11,7 @@ $username = "root";
 $password = "password";
 $dbname = "CEG4981";
 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -24,6 +25,7 @@ $Message = $_POST['Message'];
 $Group = $_POST['Group'];
 $IsGroup = FALSE;
 $resultset = array();
+$USER = $_POST['user'];
 
 if (isset($Group)) {
 
@@ -50,26 +52,49 @@ AND TM_Members_Of_Grps.EM_ID=Employees.EM_ID";
     $IsGroup = TRUE;
 }
 
+        $SQL = "SELECT EM_ID FROM logins WHERE User_name = $USER";
+        $result = $conn->query($SQL);
+        $row = $result->fetch_assoc();
+        $EM_ID = $row["EM_ID"];
 
+        $SQL = " SELECT EM_Phone from employees where EM_ID = $EM_ID";
+        $result = $conn->query($SQL);
+        $row = $result->fetch_assoc();
+        $EM_Phone = $row["EM_Phone"];
+
+        $SQL = "SELECT MAX(Text_ID) AS Text_ID FROM texts WHERE Sender_Num = '$EM_Phone'";
+        $result = $conn->query($SQL);
+        $row = $result->fetch_assoc();
+        $Text_ID = $row["Text_ID"];
 
 if ($IsGroup) {
     foreach ($resultset as &$value) {
+        
+        $SQL = "SELECT EM_ID FROM employees WHERE EM_Phone = $Value";
+        $result = $conn->query($SQL);
+        $row = $result->fetch_assoc();
+        $REM_ID = $row["EM_ID"];
 
         $INSERT = "insert into texts (Msg_SID,Direction,Sender_Num,Text_Content,Cost, Msg_Status, Date_sent)
-VALUES ('$EM_ID','Outgoing','$number','$body','1','Recieved',NOW())";
+VALUES ('$EM_ID','Outgoing','$EM_Phone','$body','1','Recieved',NOW())";
         $conn->query($INSERT);
 
-        $INSERT = "INSERT INTO recievers(`Text_ID`, `Recv_EM_ID`, `View_Status`, `Date_recieved`) VALUES ('$Text_ID','$EM_ID','Unread',NOW())";
+        $INSERT = "INSERT INTO recievers(`Text_ID`, `Recv_EM_ID`, `View_Status`, `Date_recieved`) VALUES ('$Text_ID','$REM_ID','Unread',NOW())";
         $conn->query($INSERT);
     }
 } else {
 
-    $INSERT = "insert into texts (Msg_SID,Direction,Sender_Num,Text_Content,Cost, Msg_Status, Date_sent)
-VALUES ('$EM_ID','Outgoing','$number','$body','1','Recieved',NOW())";
-    $conn->query($INSERT);
+          $SQL = "SELECT EM_ID FROM employees WHERE EM_Phone = $ToPhone";
+        $result = $conn->query($SQL);
+        $row = $result->fetch_assoc();
+        $REM_ID = $row["EM_ID"];
 
-    $INSERT = "INSERT INTO recievers(`Text_ID`, `Recv_EM_ID`, `View_Status`, `Date_recieved`) VALUES ('$Text_ID','$EM_ID','Unread',NOW())";
-    $conn->query($INSERT);
+        $INSERT = "insert into texts (Msg_SID,Direction,Sender_Num,Text_Content,Cost, Msg_Status, Date_sent)
+VALUES ('$EM_ID','Outgoing','$EM_Phone','$body','1','Recieved',NOW())";
+        $conn->query($INSERT);
+
+        $INSERT = "INSERT INTO recievers(`Text_ID`, `Recv_EM_ID`, `View_Status`, `Date_recieved`) VALUES ('$Text_ID','$REM_ID','Unread',NOW())";
+        $conn->query($INSERT);
 }
 
 
