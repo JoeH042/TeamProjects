@@ -36,6 +36,7 @@ switch ($action){
         $userLastLogin = get_last_login_time($userName);
         $userReceivedMessages = get_received_messages($userName);
         $userPendingMessages = get_pending_messages($userName);
+        $popularUsers = get_24_hr_popular($userName);
         include('view/home_view.php');
        //echo get_member(1);
         break;
@@ -172,16 +173,9 @@ switch ($action){
         $role_em="";
         $status_check = "N";
         $this_action_message = "Add New Role";
-        include('view/manage_directory/role_add.php');
-        
-       
+        include('view/manage_directory/role_add.php');      
         break;  
-      
-      
-    
-    
-    
-    
+ 
     ////////////////////////////////////////////////////////////////
      case 'man_group_view':
         $groups = get_groups();
@@ -474,6 +468,7 @@ switch ($action){
             $userLastLogin = get_last_login_time($userName);
             $userReceivedMessages = get_received_messages($userName);
             $userPendingMessages = get_pending_messages($userName);
+            $popularUsers = get_24_hr_popular($userName);
 
              include('view/home_view.php');
     

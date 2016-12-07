@@ -105,3 +105,47 @@ function get_pending_messages ($userName) {
     return $pendingMessages;
     //return 'fake number';
 }
+
+/*
+ * Returns the employee names of people in this department and sent messages sorted by sent messages.
+ */
+//Removed "//AND Texts.Date_sent > DATE_SUB(NOW(), INTERVAL 24 HOUR)" from line 117 to get all messages for testing purposes
+function get_24_hr_messages_from_dept($userName){
+    global $db;
+    $query = 'SELECT COUNT(Msg_Status), Employees.EM_ID, Employees.EM_Firstname, Employees.EM_Lastname FROM Employees
+              JOIN Texts ON Texts.Msg_SID = Employees.EM_ID
+              JOIN Departments ON Departments.Dept_ID = Employees.EM_Department_ID
+              JOIN Logins ON Logins.EM_ID = Texts.Msg_SID
+              WHERE texts.Msg_Status = :sent AND Departments.Dept_ID = Departments.Dept_ID
+              AND Logins.User_name = :user_name 
+              ORDER by COUNT(Msg_Status) DESC';
+              $statement = $db->prepare($query);
+              $statement->bindValue(':user_name', $userName);
+              $statement->bindValue(':sent', 'Sent');
+              $statement->execute();
+              $array = $statement->fetch();
+              return $array;
+    }
+    
+function get_24_hr_popular($userName){
+    global $db;
+    $query = 'SELECT COUNT(DISTINCT texts.Text_ID), EM.EM_ID, EM.EM_Firstname, EM.EM_Lastname FROM Employees EM
+        JOIN Texts ON Texts.Msg_SID = EM.EM_ID
+        JOIN employees ON EM.EM_Department_ID = employees.EM_Department_ID
+        WHERE texts.Msg_Status = :sent
+        AND employees.EM_Department_ID =
+        (SELECT B.EM_Department_ID AS boss FROM employees B
+        JOIN logins ON logins.User_ID = B.EM_ID
+        WHERE logins.User_name = :user_name)
+        AND Texts.Date_sent > DATE_SUB(NOW(), INTERVAL 150 HOUR)
+        Group By EM.EM_ID
+        ORDER by COUNT(Msg_Status) DESC';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_name', $userName);
+    $statement->bindValue(':sent', 'Sent');
+    $statement->execute();
+    $input = $statement->fetchAll(); //$array = array_slice($input, 0, 5, true);     //only send the top 5
+    echo $input[2]['EM_ID'];
+    return $input; 
+    }    
+    

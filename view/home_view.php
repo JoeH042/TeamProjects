@@ -27,6 +27,8 @@
     </div>
     <div class="float-box">
         <h4>24 Hour, My Team Activity</h4>
+        <?php foreach ($popularUsers as $popularUser){
+        echo nl2br($popularUser['EM_Firstname']. " " . $popularUser['EM_Lastname'] .": ". $popularUser['EM_ID']. "\n"); }?>    
     </div>    
 </section>
 <?php include 'view/uniform/footer.php'; 

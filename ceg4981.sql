@@ -2,9 +2,6 @@ DROP DATABASE IF EXISTS CEG4981;
 CREATE DATABASE CEG4981;
 USE CEG4981;  -- MySQL command
 
-
-
-
 -- create the tables
 CREATE TABLE Employees (
   EM_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -16,8 +13,8 @@ CREATE TABLE Employees (
   EM_Status set('Active','Inactive') DEFAULT 'Active',
   EM_Department_ID int(9) UNSIGNED NOT NULL,
   PRIMARY KEY (EM_ID)
-
   );
+
 CREATE TABLE Groups (
   Group_ID INT(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   Group_Name         VARCHAR(80)    NOT NULL,
@@ -27,6 +24,7 @@ CREATE TABLE Groups (
   PRIMARY KEY (Group_ID),
   CONSTRAINT FOREIGN KEY (Group_Leader_ID) references Employees (EM_ID) ON UPDATE CASCADE
 );
+
 CREATE TABLE Departments (
   Dept_ID 	int(9) 	UNSIGNED 	NOT NULL 	AUTO_INCREMENT,
   Dept_Name 	varchar(30) 	NOT NULL,
@@ -41,8 +39,7 @@ CREATE TABLE Departments (
 -- ADD CONSTRAINT fk_grpID FOREIGN KEY (EM_Group_ID) references Groups (Group_ID),
 -- ADD CONSTRAINT fk_emID FOREIGN KEY (EM_Department_ID) references Departments (Dept_ID);
 
-CREATE TABLE Roles (
- 
+CREATE TABLE Roles ( 
   Role_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   Role_Name varchar(30) NOT NULL,
   Role_Description text,
@@ -50,13 +47,11 @@ CREATE TABLE Roles (
   EM_ID int(9) UNSIGNED DEFAULT NULL,
   Role_Status set('Active','Inactive') DEFAULT NULL,
   PRIMARY KEY (Role_ID),
-  
   CONSTRAINT FOREIGN KEY (Dept_ID) references Departments (Dept_ID) ON UPDATE CASCADE,
   CONSTRAINT FOREIGN KEY (EM_ID) references Employees (EM_ID) ON UPDATE CASCADE
-   );
+);
 
 CREATE TABLE Logins (
-
   User_ID int(9) UNSIGNED NOT NULL AUTO_INCREMENT,
   User_name varchar(30) NOT NULL,
   User_Password varchar(50) NOT NULL,
@@ -79,8 +74,8 @@ CREATE TABLE Texts (
   PRIMARY KEY (Text_ID),
   CONSTRAINT FOREIGN KEY (Msg_SID) references Employees (EM_ID)ON UPDATE CASCADE
 );
-CREATE TABLE Recievers (
 
+CREATE TABLE Recievers (
   Text_ID int(9) UNSIGNED NOT NULL ,
   Recv_EM_ID int(9) UNSIGNED NOT NULL,
   View_Status set('Read','Unread') DEFAULT NULL,
@@ -113,19 +108,19 @@ INSERT INTO Employees VALUES
 (1, 'Mary', 'M', 'Brown', 'm123@wright.edu', +19372034641, 'Active', 1),
 (2, 'Anna', 'Gar', 'Lee', 'A321@wright.edu', +11937654321, 'Inactive', 1),
 (3, 'Wendy', 'Rex', 'Meyer', 'W156@wright.edu', +114294967295, 'Active', 1),
-(4, 'Nina', 'Matty', 'Perterson', 'W.12@wright.edu', +11144967295, 'Inactive', 2),
+(4, 'Nina', 'Matty', 'Perterson', 'W.12@wright.edu', +11144967295, 'Inactive', 1),
 (5, 'Yipeng', 'Craig', 'Wang', 'wang.161@wright.edu', +19372312311, 'Active',  2),
-(6, 'John', 'Billy', 'Johnson', 'W.@right.edu', +14294961111, 'Active', 4),
-(7, 'XP', 'Carh', 'Windows', 'W12@gmail.edu', +14472951111, 'Inactive', 3),
+(6, 'John', 'Billy', 'Johnson', 'W.@right.edu', +14294961111, 'Active', 2),
+(7, 'XP', 'Carh', 'Windows', 'W12@gmail.edu', +14472951111, 'Inactive', 2),
 (8, 'Tina', 'Shamwow', 'June', 'wa@wright.edu', +19372311111, 'Active',  2);
 
 INSERT INTO Departments VALUES
-(1, 'CEG', 'Computer Engineering', 3,'active'),
-(2, 'CS', 'COMPUTER SCIENCE', 2,'inactive'),
-(3, 'Mth', 'Mathmatics', 1,'active'),
-(4, 'ART', 'ART', 5,'active'),
-(5, 'BIO', 'BIO SCIENCE', 7,'active'),
-(6, 'CHE', 'Chemistry', 4,'inactive');
+(1, 'PRE', 'Public Relations', 3,'active'),
+(2, 'ACC', 'Accounting', 2,'inactive'),
+(3, 'HAS', 'Health and Safety', 1,'active'),
+(4, 'ENV', 'Environmental', 5,'active'),
+(5, 'MAI', 'Maintenance', 7,'active'),
+(6, 'TRA', 'Transportation', 4,'inactive');
 
 INSERT INTO Groups VALUES
 (1, 'Fire', 'first responder of fire scene',2,'active'),
@@ -137,11 +132,11 @@ INSERT INTO Groups VALUES
 
 INSERT INTO Roles VALUES
 (1, 'Police Liason', 'PR and policy expert', 1,1,'active'),
-(2, 'Customer Service', 'Front end customer issue addressing',2, 3,'active'),
-(3, 'Manager', 'founding management', 2,2,'active'),
-(4, 'Customer Service', 'Front end customer issue addressing',3, 5,'active'),
-(5, 'account', 'founding management', 2,6,'active'),
-(6, 'Customer Service', 'Front end customer issue addressing',3, 6,'active');
+(2, 'IT Manager', 'Front end customer issue addressing',2, 3,'active'),
+(3, 'Mission Commander', 'founding management', 2,2,'active'),
+(4, 'Assistant Manager', 'Front end customer issue addressing',3, 5,'active'),
+(5, 'Accounts Receivable Lead', 'founding management', 2,6,'active'),
+(6, 'Public Relations Manager', 'Front end customer issue addressing',3, 6,'active');
 
 INSERT INTO Logins VALUES
 (1, 'w079yxw', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'admin', 5, '2016-10-12 08:23:46'),
@@ -149,9 +144,15 @@ INSERT INTO Logins VALUES
 (3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 08:23:46'); 
 
 INSERT INTO Texts VALUES 
-(1, 2, 'OutgingAPI', 1234, 'hello', 3, 'Sent', '2016-11-30 06:00:00'),
-(2, 1, 'OutgingAPI', 362, 'location : 201', 3, 'Sent', '2016-11-30 06:00:00'),
-(3, 2, 'OutgingAPI', 12, 'washington', 3, 'Sent', '2016-11-30 06:00:00');
+(1, 1, 'OutgingAPI', 1234, 'no washington is the street name, the cat is in the house, and the house is on fire. there is no hole.', 3, 'Sent', '2016-12-2 06:00:00'),
+(2, 2, 'OutgingAPI', 362, 'is washington the name of the cat', 3, 'Sent', '2016-12-2 06:00:00'),
+(3, 3, 'OutgingAPI', 12, 'washington street is where the fire is', 3, 'Sent', '2016-12-2 06:00:00'),
+(4, 3, 'OutgingAPI', 1234, 'fire in the hole', 3, 'Sent', '2016-12-2 06:00:00'),
+(5, 1, 'OutgingAPI', 362, 'did you know there was a fire', 3, 'Sent', '2016-12-2 06:00:00'),
+(6, 2, 'OutgingAPI', 12, 'cant beleieve we are on fire', 3, 'Sent', '2016-12-2 06:00:00'),
+(7, 2, 'OutgingAPI', 1234, 'the house is on fire', 3, 'Sent', '2016-12-2 06:00:00'),
+(8, 2, 'OutgingAPI', 362, 'did you rescue the cat from the fire', 3, 'Sent', '2016-12-2 06:00:00'),
+(9, 3, 'OutgingAPI', 12, 'is the cat in a hole or on fire', 3, 'Sent', '2016-12-2 06:00:00');
 
 INSERT INTO  Recievers VALUES
 (1,1,'2016-11-23 08:00:00','Read'),
