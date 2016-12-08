@@ -237,5 +237,5 @@ function findwords_24(){
                     break;}
             foreach ($sortable_array as $k => $v) {
                 $new_array[$k] = $array[$k];}}
-        $sliced_array = array_slice($new_array, 0, 5);
+        $sliced_array = array_slice($new_array, 0, 4);
     return $sliced_array;}
