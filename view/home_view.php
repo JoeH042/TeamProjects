@@ -21,9 +21,13 @@
     <h1>Query Reports</h1>
     <div class="float-box">
         <h4>5 Hour, Trending Keywords</h4>
+            <?php foreach ($words_5hrs as $word){
+            echo nl2br($word['word']. ": " . $word['count']. "\n"); }?>           
     </div>
     <div class="float-box">
         <h4>24 Hour, Trending Keywords</h4>
+            <?php foreach ($words_24hrs as $word){
+            echo nl2br($word['word']. ": " . $word['count']. "\n"); }?>      
     </div>
     <div class="float-box">
         <h4>24 Hour, My Team Activity</h4>

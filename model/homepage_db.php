@@ -148,11 +148,12 @@ function get_24_hr_popular($userName){
     //echo $input[2]['EM_ID'];
     return $input; 
     }   
-    
-function findwords(){
-        
+
+
+
+function findwords_5(){       
     global $db;
-    $query="SELECT Text_Content FROM Texts ";
+    $query="SELECT Text_Content FROM Texts WHERE Texts.Date_sent > DATE_SUB(NOW(), INTERVAL 100 HOUR)";
     $statement = $db->prepare($query);       
     $statement->execute();
     $input = $statement->fetch(); 
@@ -161,27 +162,80 @@ function findwords(){
     $find = array(",",".","(",")","!","?");//remove special chars
     $replace = array("");
     $wordArray = str_replace($find,$replace,$allArray);
-    
-    $exclude_array = find_exclude_words();
-    
+    $exclude_array = find_exclude_words();//an array with the values excluded
     $array_with_exlusions = array_diff($wordArray, $exclude_array);
+    $countedArray = array();
+    foreach ($array_with_exlusions as $word){
+        $count = array_count_values_of($word, $array_with_exlusions);
+        array_push($countedArray, array('word'=>$word,'count'=>$count));}
+    $countedArray = array_map("unserialize", array_unique(array_map("serialize", $countedArray)));
+    $sortedArray = array_sort($countedArray,'count');
+    return $sortedArray;
+}
     
-    
-    print_r($array_with_exlusions);
-    }
+function findwords_24(){       
+    global $db;
+    $query="SELECT Text_Content FROM Texts WHERE Texts.Date_sent > DATE_SUB(NOW(), INTERVAL 150 HOUR)";
+    $statement = $db->prepare($query);       
+    $statement->execute();
+    $input = $statement->fetch(); 
+    $all = implode(" ", $input);
+    $allArray = explode(" ", $all); 
+    $find = array(",",".","(",")","!","?");//remove special chars
+    $replace = array("");
+    $wordArray = str_replace($find,$replace,$allArray);
+    $exclude_array = find_exclude_words();//an array with the values excluded
+    $array_with_exlusions = array_diff($wordArray, $exclude_array);
+    $countedArray = array();
+    foreach ($array_with_exlusions as $word){
+        $count = array_count_values_of($word, $array_with_exlusions);
+        array_push($countedArray, array('word'=>$word,'count'=>$count));}
+    $countedArray = array_map("unserialize", array_unique(array_map("serialize", $countedArray)));
+    $sortedArray = array_sort($countedArray,'count');
+    return $sortedArray;
+}
 
     //return an array of excluded words
-function find_exclude_words(){
-    global $db;
-    $newquery="SELECT Word FROM Word_filters WHERE Word_Status = :active";
-    
-    $newstatement = $db->prepare($newquery); 
-    $newstatement->bindValue(':active', 'Active');
-    $newstatement->execute();    
-    $temp = $newstatement->fetchAll();
-    $array = array();
-    foreach($temp as $x){
-        array_push($array, $x['Word']);
+    function find_exclude_words(){
+        global $db;
+        $newquery="SELECT Word FROM Word_filters WHERE Word_Status = :active";
+
+        $newstatement = $db->prepare($newquery); 
+        $newstatement->bindValue(':active', 'Active');
+        $newstatement->execute();    
+        $temp = $newstatement->fetchAll();
+        $array = array();
+        foreach($temp as $x){
+            array_push($array, $x['Word']);
+        }
+        return $array;
     }
-    return $array;
-}    
+    
+    //reference:http://stackoverflow.com/questions/5945199/counting-occurence-of-specific-value-in-an-array-with-php
+    function array_count_values_of($value, $array) {
+        $counts = array_count_values($array);
+        return $counts[$value];
+    }
+    
+    //reference:http://stackoverflow.com/questions/16306416/sort-php-multi-dimensional-array-based-on-key
+    function array_sort($array, $on, $order=SORT_DESC){
+        $new_array = array();
+        $sortable_array = array();
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $on) {
+                            $sortable_array[$k] = $v2;}
+                    }} else {$sortable_array[$k] = $v;}}
+            switch ($order) {
+                case SORT_ASC:
+                    asort($sortable_array);
+                    break;
+                case SORT_DESC:
+                    arsort($sortable_array);
+                    break;}
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];}}
+        $sliced_array = array_slice($new_array, 0, 5);
+    return $sliced_array;}
