@@ -82,10 +82,20 @@ if ($IsGroup) {
         fwrite($myfile, $INSERT);
         
         //the ID of the text (to put into recievers)
-        $SQL = "SELECT MAX(Text_ID) AS Text_ID FROM texts WHERE Sender_Num Like '%'$EM_Phone'%'";
+        $SQL = "SELECT MAX(Text_ID) AS Text_ID FROM texts WHERE Sender_Num = '$EM_Phone' ";
         $result = $conn->query($SQL);
         $row = $result->fetch_assoc();
         $Text_ID = $row["Text_ID"];
+        
+        
+        if($Text_ID == "")
+        {
+         $newphone = '+1'.$EM_Phone;   
+        $SQL = "SELECT MAX(Text_ID) AS Text_ID FROM texts WHERE Sender_Num = '$newphone' ";
+        $result = $conn->query($SQL);
+        $row = $result->fetch_assoc();
+        $Text_ID = $row["Text_ID"];
+        }
   
  foreach ($resultset as $value) {
         
@@ -167,5 +177,5 @@ $URL = "http://rbscenter.com/teamProjects/newSMS.php?ToPhone=$ToPhone&Message=$M
 
 
 //Process the call USER END
-//header('Location: ' . $URL);
+header('Location: ' . $URL);
 ?>
