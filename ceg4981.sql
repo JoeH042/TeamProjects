@@ -84,7 +84,7 @@ CREATE TABLE Recievers (
   
   Text_ID int(9) UNSIGNED NOT NULL ,
   Recv_EM_ID int(9) UNSIGNED NOT NULL,
-
+Date_recieved datetime DEFAULT NULL,
   PRIMARY KEY (Text_ID,Recv_EM_ID),
   CONSTRAINT FOREIGN KEY (Recv_EM_ID) references Employees (EM_ID)  ON UPDATE CASCADE,
   CONSTRAINT FOREIGN KEY (Text_ID) references Texts (Text_ID)  ON UPDATE CASCADE
@@ -177,18 +177,19 @@ INSERT INTO Texts VALUES
 
 INSERT INTO  Recievers VALUES
 
-(1,5),
-(2,6),
-(2,5),
-(2,7),
-(5,3),
-(5,4),
-(6,1),
-(6,4),
-(7,3),
-(7,4),
-(7,1),
-(2,8);
+(1,5,'2016-12-07 15:23:20'),
+(2,6,'2016-10-03 12:23:20'),
+(2,5,'2016-10-08 10:23:20'),
+(2,7,'2016-11-07 4:23:20'),
+(5,3,'2016-12-09 11:23:20'),
+(5,4,'2016-12-21 12:13:20'),
+(6,1,'2016-11-09 5:23:20'),
+(6,4,'2016-11-07 15:23:20'),
+(7,3,'2016-12-07 6:20:20'),
+(7,4,'2016-1-07 5:03:20'),
+(7,1,'2016-12-09 6:13:20'),
+(50,1,'2016-12-09 6:13:20'),
+(2,8,'2016-6-6 6:6:6');
 
 -- User 1 password is pass
 -- 2 password is haha
