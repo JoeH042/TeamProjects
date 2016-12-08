@@ -76,32 +76,26 @@ function get_last_login_time ($userName) {
 
 function get_received_messages($userName) {
     global $db;
-    $query = 'SELECT COUNT(View_Status) AS "Pending" FROM Texts
-             JOIN Logins ON Logins.EM_ID = Texts.Msg_SID
-             WHERE texts.View_Status = :unread AND Logins.User_name = :user_name;';
+    $query = 'SELECT COUNT(*) FROM Logins,Texts,Recievers WHERE Logins.User_name=:userName AND Logins.EM_ID= Recievers.Recv_EM_ID AND Texts.Text_ID=Recievers.Text_ID AND Texts.View_Status="Read"';
     $statement = $db->prepare($query);
-    $statement->bindValue(':user_name', $userName);
-    $statement->bindValue(':unread', 'Unread');    
+    $statement->bindValue(':userName', $userName);   
     $statement->execute();
-    $receivedMessagesArray= $statement->fetch();
-    $receivedMessages = $receivedMessagesArray['Pending'];
+    $receivedMessages= $statement->fetch();
+    //$receivedMessages = $receivedMessagesArray['Pending'];
     $statement->closeCursor();
-    return $receivedMessages;
+    return $receivedMessages[0];
     //return 'fake number';
 }
 
 function get_pending_messages ($userName) {
     global $db;
-    $query ='SELECT COUNT(View_Status) AS "Pending" FROM Texts
-             JOIN Logins ON Logins.EM_ID = Texts.Msg_SID
-             WHERE texts.View_Status = :unread AND Logins.User_name = :user_name;';
+    $query ='SELECT COUNT(*) FROM Logins,Texts,Recievers WHERE Logins.User_name=:userName AND Logins.EM_ID= Recievers.Recv_EM_ID AND Texts.Text_ID=Recievers.Text_ID AND Texts.View_Status="UnRead"';
     $statement = $db->prepare($query);
-    $statement->bindValue(':user_name', $userName);
-    $statement->bindValue(':unread', 'Unread');
+    $statement->bindValue(':userName', $userName);
     $statement->execute();
-    $pendingMessagesArray= $statement->fetch();
+    $pendingMessages= $statement->fetch();
     $statement->closeCursor();
-    $pendingMessages = $pendingMessagesArray['Pending'];
-    return $pendingMessages;
+    //$pendingMessages = $pendingMessagesArray['Pending'];
+    return $pendingMessages[0];
     //return 'fake number';
 }

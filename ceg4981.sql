@@ -71,13 +71,11 @@ CREATE TABLE Texts (
   Msg_SID int(9) UNSIGNED NOT NULL,
   Direction set('OutgingAPI','Outgoing','Incomming','Reply') DEFAULT NULL,
   Sender_Num INT(20) UNSIGNED DEFAULT NULL,
-  Recieve_Num INT(20) UNSIGNED DEFAULT NULL,
   Text_Content text NOT NULL,
   View_Status set('Read','Unread') DEFAULT NULL,
   Cost int(9) UNSIGNED NOT NULL,
   Msg_Status set('Unsent','Sent','Delievered') DEFAULT NULL,
   Date_sent datetime DEFAULT NULL,
-  Date_recieved datetime DEFAULT NULL,
   PRIMARY KEY (Text_ID),
   CONSTRAINT FOREIGN KEY (Msg_SID) references Employees (EM_ID)ON UPDATE CASCADE
 );
@@ -118,7 +116,9 @@ INSERT INTO Employees VALUES
 (5, 'Yipeng', 'Craig', 'Wang', 'wang.161@wright.edu', 9372312311, 'Active',  2),
 (6, 'John', 'Billy', 'Johnson', 'W.@right.edu', 4294961111, 'Active', 4),
 (7, 'XP', 'Carh', 'Windows', 'W12@gmail.edu', 4472951111, 'Inactive', 3),
-(8, 'Tina', 'Shamwow', 'June', 'wa@wright.edu', 9372311111, 'Active',  2);
+(8, 'Tina', 'Shamwow', 'June', 'wa@wright.edu', 9372311111, 'Active',  2),
+(9, 'Zuli', '', 'R', 'rhodes.68@wright.edu', '+18647065970', 'Active', 1),
+(10, 'Joe', '', 'H', 'henning.20@wright.edu', '+15134357101', 'Active', 1);
 INSERT INTO Departments VALUES
 (1, 'CEG', 'Computer Engineering', 3,'active'),
 (2, 'CS', 'COMPUTER SCIENCE', 2,'inactive'),
@@ -144,22 +144,51 @@ INSERT INTO Roles VALUES
 
 
 INSERT INTO Logins VALUES
+
 (1, 'w079yxw', '9d4e1e23bd5b727046a9e3b4b7db57bd8d6ee684', 'admin', 5, '2016-10-12 08:23:46'),
 (2, 'w123', '637d1f5c6e6d1be22ed907eb3d223d858ca396d8', 'admin', 3, '2016-10-12 08:23:46'), 
 (3, 'user', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', 'admin', 1, '2016-10-12 08:23:46'); 
 
 INSERT INTO Texts VALUES 
-(1, 2, 'OutgingAPI', 1234, 3214, 'hello', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00'),
-(2, 1, 'OutgingAPI', 362, 892, 'location : 201', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00'),
-(3, 2, 'OutgingAPI', 12, 3214, 'washington', 'Read', 3, 'Sent', '2016-11-30 06:00:00', '2016-11-23 08:00:00');
+(2, 2, 'OutgingAPI', '362', 'is washington the name of the cat','Read', 3, 'Sent', '2016-12-02 06:00:00'),
+(3, 3, 'OutgingAPI', '12', 'washington street is where the fire is', 'UnRead',3, 'Sent', '2016-12-02 06:00:00'),
+(4, 3, 'OutgingAPI', '1234', 'fire in the hole','UnRead', 3, 'Sent', '2016-12-02 06:00:00'),
+(5, 1, 'OutgingAPI', '362', 'did you know there was a fire','UnRead', 3, 'Sent', '2016-12-02 06:00:00'),
+(6, 2, 'OutgingAPI', '21256', 'the building is dangrouse','UnRead', 3, 'Sent', '2016-12-02 06:00:00'),
+(7, 2, 'OutgingAPI', '1234', 'the house is on fire','UnRead', 3, 'Sent', '2016-12-02 06:00:00'),
+(8, 2, 'OutgingAPI', '362', 'did you rescue the cat from the fire','UnRead', 3, 'Sent', '2016-12-02 06:00:00'),
+(9, 3, 'OutgingAPI', '12', 'is the cat in a hole or on fire','Read', 3, 'Sent', '2016-12-02 06:00:00'),
+(14, 10, 'Incomming', '+15134357101', 'This is a test on 12/7', 'Read',1, '', '2016-12-07 15:23:20'),
+(15, 10, 'Incomming', '+15134357101', 'Hey this is another test','UnRead', 1, '', '2016-12-07 17:05:53'),
+(17, 10, 'Incomming', '+15134357101', '123','Read', 1, '', '2016-12-07 17:12:47'),
+(21, 1, '', '+19372034641', 'hi againagain', 'Read',1, '', '2016-12-07 17:39:22'),
+(40, 1, '', '+19372034641', 'test', 'UnRead',1, '', '2016-12-07 18:10:32'),
+(48, 1, '', '+19372034641', 'JOE123', 'Read',1, '', '2016-12-07 18:36:22'),
+(50, 1, 'Outgoing', '+19372034641', 'JOE123','Read', 1, 'Sent', '2016-12-07 18:53:05'),
+(51, 1, 'Outgoing', '+19372034641', 'JOE123','Unread', 1, 'Sent', '2016-12-07 18:53:32'),
+(52, 1, 'Outgoing', '+19372034641', '6555','Read', 1, 'Sent', '2016-12-07 18:55:43'),
+(53, 1, 'Outgoing', '+19372034641', 'asrwt','Read', 1, 'Sent', '2016-12-07 18:56:10'),
+(54, 1, 'Outgoing', '+19372034641', '123', 'Read',1, 'Sent', '2016-12-07 18:57:00'),
+(55, 1, 'Outgoing', '+19372034641', 'ferf', 'UnRead',1, 'Sent', '2016-12-07 19:01:56'),
+(56, 1, '', '+19372034641', 'fun?','Read', 1, '', '2016-12-07 19:04:57'),
+(57, 1, 'Outgoing', '+19372034641', '7:07pm','Read', 1, 'Sent', '2016-12-07 19:07:23'),
+(1, 1, 'OutgingAPI', '1234', 'no washington is the street name, the cat is in the house, and the house is on fire. there is no hole.','Read', 3, 'Sent', '2016-12-02 06:00:00');
+
 
 INSERT INTO  Recievers VALUES
-(1,1),
-(1,2),
-(2,3),
-(2,5),
+
+(1,5),
 (2,6),
-(2,7);
+(2,5),
+(2,7),
+(5,3),
+(5,4),
+(6,1),
+(6,4),
+(7,3),
+(7,4),
+(7,1),
+(2,8);
 
 -- User 1 password is pass
 -- 2 password is haha
