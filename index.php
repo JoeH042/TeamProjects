@@ -443,7 +443,7 @@ switch ($action){
             break;
         }
         $new_user_login_message= 'New user successfully added.';
-        include('view/profiles/manage_user_profiles.php');
+        include('view/manage_directory/user_profiles.php');
         break;       
     case 'login':
         $username = filter_input(INPUT_POST, 'username');
@@ -457,8 +457,7 @@ switch ($action){
             //include('view/home_view.php');
             //only check for admin status if the user is valid
             if (is_valid_admin($username)) {
-                $_SESSION['is_valid_admin'] = true;
-                
+                $_SESSION['is_valid_admin'] = true;  
             }
 
        

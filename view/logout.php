@@ -6,7 +6,7 @@
 ?> 
 
 <main>
-    <h1>Logout To be implemented </h1>
+    <h1>You have logged out!</h1>
 </main>
 
 <?php include 'view/uniform/footer.php'; ?>
